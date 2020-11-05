@@ -1,5 +1,5 @@
 # Alternate site name
-alternate: Yume Shoka
+alternate: Watching Autumn
 
 # Assets
 statics: / #//cdn.jsdelivr.net/gh/username/RepositoryName@latest/
@@ -68,17 +68,17 @@ font:
 darkmode: false
 
 # By default the page will automatically scroll to the last viewed position
-# if `false`, automatic positioning will be turned off
-auto_scroll: true
+# if `false`, automatic positioning will be turned off 这个是自动保存浏览的位置下次打开继续到上一次浏览的位置
+auto_scroll: false
 
 # Whether to show the loading cat
 loader:
-  start: true # When entering the page
-  switch: true # When switching to another page
+  start: false # When entering the page
+  switch: false # When switching to another page
 
 sidebar:
   # Sidebar Position.
-  position: left
+  position: right
   # position: right
   # Replace the default avatar image and set the url here.
   avatar: avatar.jpg
@@ -208,7 +208,7 @@ valine:
     visitor: 新朋友
     master: 主人
     friend: 小伙伴
-    investor: 金主粑粑
+    investor: 金主大佬
   tagColor:
     master: "var(--color-orange)"
     friend: "var(--color-aqua)"
