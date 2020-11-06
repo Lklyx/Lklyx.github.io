@@ -106,11 +106,9 @@ symbol:
 
 reward:
   donate: 赞赏
-  text: 请我喝[茶]~(￣▽￣)~*
+  text: ^_^请我喝奶茶^_^
   wechatpay: 微信支付
   alipay: 支付宝
-  paypal: 贝宝
-  bitcoin: 比特币
 
 follow_me:
   welcome: 欢迎关注我的其它发布渠道

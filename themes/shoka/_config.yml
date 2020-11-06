@@ -155,13 +155,13 @@ creative_commons:
   language: deed.zh
 
 # Reward (Donate)
+# 赞赏功能
 reward:
-  # If true, reward will be displayed in every article by default.
+  # If true, reward will be displayed in every article by default.如果为真，则默认每篇文章中都会显示奖励
   enable: true
   account:
-    wechatpay: /wechatpay.png
-    alipay: /alipay.png
-    paypal: /paypal.png
+    wechatpay: /wechatpay.png #微信支付
+    alipay: /alipay.png # 支付宝支付
 
 
 # ---------------------------------------------------------------
