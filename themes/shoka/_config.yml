@@ -116,8 +116,8 @@ social:
   #douban: https://www.douban.com/people/yourname/ || douban
 
 post:
-  # Dependencies: https://github.com/theme-next/hexo-symbols-count-time
-  count: false
+  # Dependencies: https://github.com/theme-next/hexo-symbols-count-time 安装文章字数统计插件
+  count: true #开启文章字数及阅读时间统计
 
 # TagCloud settings for tags page.
 tagcloud:
@@ -136,9 +136,15 @@ footer:
     # Change the color of icon, using Hex Code.
     color: "#ffc0cb"
   # Dependencies: https://github.com/theme-next/hexo-symbols-count-time
-  count: false
+  count: true #开启文章字数及阅读时间统计
   powered: true
-
+# =======================================================================
+#symbols_count_time:
+  #symbols: true
+  #time: true
+  #total_symbols: true
+  #total_time: true
+# =======================================================================
 widgets:
   # if true, will show random posts
   random_posts: true
@@ -172,7 +178,7 @@ reward:
 pangu: false
 
 # bgm
-audio:
+audio: # 音频播放
   # - title: 列表1
   #   list:
   #    - https://music.163.com/#/playlist?id=2943811283
