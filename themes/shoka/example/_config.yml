@@ -118,7 +118,7 @@ markdown:
         name: ./markdown-it-spoiler
         enable: true
         options:
-          title: "你知道得太多了"
+          title: "你知道得有点多了╭(╯^╰)╮"
 
 minify:
   html:
