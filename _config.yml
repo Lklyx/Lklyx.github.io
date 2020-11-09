@@ -49,11 +49,11 @@ future: true
 
 highlight:
   enable: true
-  line_number: true # 显示代码块的行号
-  auto_detect: true
+  auto_detect: true # 代码块高亮
+  line_number: true
   tab_replace: ''
   wrap: true
-  hljs: true
+  hljs: false
 prismjs:
   enable: false
   preprocess: true
@@ -101,7 +101,8 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: shoka
+theme: shoka 
+# theme: landscape
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
