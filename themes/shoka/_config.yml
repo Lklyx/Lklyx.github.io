@@ -92,7 +92,7 @@ menu:
     categories: /categories/ || th
     tags: /tags/ || tags
   friends: /friends/ || heart
-  links: /links/ || magic
+  链接: /links/ || magic
 
 # Social Links
 # Usage: `Key: permalink || icon || color`

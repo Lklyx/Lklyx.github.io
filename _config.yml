@@ -15,8 +15,10 @@ timezone: ''
 ## If your site is put in a subdirectory, set url as 'http://example.com/child' and root as '/child/'
 url: http://example.com
 root: /
-permalink: :year/:month/:day/:title/
+# permalink: :year/:month/:day/:title/
+permalink: :title/
 permalink_defaults:
+
 pretty_urls:
   trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
   trailing_html: true # Set to false to remove trailing '.html' from permalinks
@@ -41,16 +43,17 @@ external_link:
   exclude: ''
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
+post_asset_folder: true
 relative_link: false
 future: true
+
 highlight:
   enable: true
-  line_number: true
-  auto_detect: false
+  line_number: true # 显示代码块的行号
+  auto_detect: true
   tab_replace: ''
   wrap: true
-  hljs: false
+  hljs: true
 prismjs:
   enable: false
   preprocess: true
