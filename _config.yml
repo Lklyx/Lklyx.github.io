@@ -4,9 +4,9 @@
 
 # Site
 title: 沿岸踱步
-subtitle: ''
-description: ''
-keywords:
+subtitle: subtitle
+description: 沿岸踱步 & 成长记录
+keywords: YA,DUO
 author: Yanan^_^Duobu
 language: zh-CN
 timezone: ''
@@ -48,7 +48,7 @@ relative_link: false
 future: true
 
 highlight:
-  enable: true
+  enable: false
   auto_detect: true # 代码块高亮
   line_number: true
   tab_replace: ''
