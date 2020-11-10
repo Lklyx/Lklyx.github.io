@@ -63,8 +63,10 @@ font:
     family: Inconsolata
 
 # Dark Mode
+# 根据用户选择是否使用夜间模式
 # By default, the page judges whether to turn on the dark mode according to the device settings or user selection
 # if `true`, the page will be displayed directly as Dark Mode, unless the user makes another choice
+# 默认夜间模式是关闭的
 darkmode: false
 
 # By default the page will automatically scroll to the last viewed position
