@@ -2,7 +2,7 @@
 title: Step.3 界面显示
 date: 2020/08/13 21:12:48
 categories:
-- [计算机科学, 二进制杂谈, Theme Shoka Documentation]
+- [主题介绍, 主题配置, Theme Shoka Documentation]
 tags:
 - Hexo
 - 教程
@@ -70,7 +70,7 @@ sticky: true
     > 所以避免在设置中使用上述字符，否则可导致无法抓取到目录下的`cover.jpg`
   
 2. 在`<root>/source/_posts`文件夹相应的目录里，存放封面图
-  例子：如 [第1周 计算](https://shoka.lostyu.me/computer-science/java/course-1/week-1/) 这篇文章。
+    例子：如 [第1周 计算](https://shoka.lostyu.me/computer-science/java/course-1/week-1/) 这篇文章。
     所处的分类是
     ```yml
     categories:

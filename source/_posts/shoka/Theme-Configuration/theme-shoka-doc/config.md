@@ -2,7 +2,7 @@
 title: Step.2 基本配置
 date: 2020/08/13 20:56:48
 categories:
-- [计算机科学, 二进制杂谈, Theme Shoka Documentation]
+- [主题介绍, 主题配置, Theme Shoka Documentation]
 tags:
 - Hexo
 - 教程
@@ -11,9 +11,8 @@ valine:
 audio: false
 ---
 
-:::primary
+
 [:rocket:快速开始](/computer-science/note/theme-shoka-doc/) - [:love_letter:依赖插件](/computer-science/note/theme-shoka-doc/dependents/) - [**:pushpin:基本配置**](/computer-science/note/theme-shoka-doc/config/) - [:rainbow:界面显示](/computer-science/note/theme-shoka-doc/display/) - [:unicorn:特殊功能](/computer-science/note/theme-shoka-doc/special/)
-:::
 
 这里修改的是`themes/shoka/_config.yml`内的配置参数。
 建议在根目录新建一个yml文件，命名为`_config.shoka.yml`，并在这个自定义文件中增改配置，而非直接修改主体文件夹内的`_config.yml`。
@@ -169,7 +168,7 @@ social:
 位于`<root>/themes/shoka/source/images/`目录里的图片们都是可以修改的。
 
 1. 修改头像 `avatar.jpg` 
-  如果要设置不同的文件名，请在主题`_config.yml`修改
+    如果要设置不同的文件名，请在主题`_config.yml`修改
   ```yml
   sidebar:
     # Replace the default avatar image and set the url here.
@@ -383,7 +382,5 @@ vendors:
 以上文件加载全部基于jsDelivr，并对全局加载的组件进行了文件合并。
 如果不明白啥意思，则不要轻易修改。
 
-:::danger
-主题版本升级的时候，可能会修改这里。
-如果修改过主题默认`_config.yml`，记得更新主题时，末尾的`vendors`也要及时修改。
-:::
+> 主题版本升级的时候，可能会修改这里。
+> 如果修改过主题默认`_config.yml`，记得更新主题时，末尾的`vendors`也要及时修改。

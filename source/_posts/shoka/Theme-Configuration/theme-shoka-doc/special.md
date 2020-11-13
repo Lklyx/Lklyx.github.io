@@ -2,7 +2,7 @@
 title: Step.4 主题特殊功能
 date: 2020/08/13 21:45:48
 categories:
-- [计算机科学, 二进制杂谈, Theme Shoka Documentation]
+- [主题介绍, 主题配置, Theme Shoka Documentation]
 tags:
 - Hexo
 - 教程

@@ -2,7 +2,7 @@
 title: Step.1 依赖插件
 date: 2020/08/13 20:46:48
 categories:
-- [计算机科学, 二进制杂谈, Theme Shoka Documentation]
+- [主题介绍, 主题配置, Theme Shoka Documentation]
 tags:
 - Hexo
 - 教程
@@ -10,13 +10,10 @@ valine:
   placeholder: "1. 提问前请先仔细阅读本文档⚡\n2. 页面显示问题💥，请提供控制台截图📸或者您的测试网址\n3. 其他任何报错💣，请提供详细描述和截图📸，祝食用愉快💪"
 ---
 
-:::primary
-[:rocket:快速开始](/computer-science/note/theme-shoka-doc/) - [**:love_letter:依赖插件**](/computer-science/note/theme-shoka-doc/dependents/) - [:pushpin:基本配置](/computer-science/note/theme-shoka-doc/config/) - [:rainbow:界面显示](/computer-science/note/theme-shoka-doc/display/) - [:unicorn:特殊功能](/computer-science/note/theme-shoka-doc/special/)
-:::
 
-:::warning
+[:rocket:快速开始](/computer-science/note/theme-shoka-doc/) - [**:love_letter:依赖插件**](/computer-science/note/theme-shoka-doc/dependents/) - [:pushpin:基本配置](/computer-science/note/theme-shoka-doc/config/) - [:rainbow:界面显示](/computer-science/note/theme-shoka-doc/display/) - [:unicorn:特殊功能](/computer-science/note/theme-shoka-doc/special/)
 请务必将hexo-renderer-multi-markdown-it升级到最新版，目前为 0.1.5
-:::
+
 
 Theme Shoka依赖以下Hexo插件
 
@@ -188,3 +185,4 @@ feed:
         template: "themes/shoka/layout/_alternate/json.ejs"
         output: "feed.json"
 ```
+

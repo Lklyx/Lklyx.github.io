@@ -6,7 +6,7 @@
 title: 沿岸踱步
 subtitle: 成长日记
 description: 沿岸踱步 & 成长记录
-keywords: YA,DUO
+keywords: YAN,DUO
 author: Yanan^_^Duobu
 language: zh-CN
 timezone: 'Asia/Shanghai'
@@ -57,12 +57,14 @@ default_category: uncategorized
 category_map: # edit for Theme.shoka
 
 
-  计算机科学: sms
-  Java: java
-  二进制杂谈: note
-  零基础学Java语言-浙江大学-翁恺: course-1
-  Theme Shoka Documentation: theme-shoka-doc
+  主题介绍: shoka
 
+  主题配置: Theme-Configuration 
+  Theme Shoka Documentation: theme-shoka-doc #主题shoka文档
+
+  We-Games: we-games
+  英雄联盟: LOL
+  QQ飞车: QQ飞车
 
 tag_map:
 
