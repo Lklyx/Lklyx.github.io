@@ -1,13 +1,14 @@
-- site: 沿岸踱步
-  owner: 沿岸踱步
-  url: https://yananduobu.top
-  desc: 海边的风 & 林中的鹿
-  image: http://localhost:4000/images/avatar.jpg
-  color: "#e9546b"
 
-- site: 沿岸踱步
-  owner: 沿岸踱步
-  url: https://yananduobu.top
-  desc: 沿岸踱步 & 成长日记
-  image: http://localhost:4000/images/avatar.jpg
-  color: "#e9365b"
+- site: 沿岸踱步 # 站名
+  owner: 沿岸踱步 & 成长日记 # 站长
+  url: https://yananduobu.top # 地址
+  desc: 沿岸踱步 & 成长日记 # 简介
+  image: http://localhost:4000/images/avatar.jpg # 图片地址
+  color: "#12A7FE"
+
+- site: 優萌初華
+  owner: 霜月琉璃
+  url: https://shoka.lostyu.me
+  desc: 琉璃的医学 & 编程笔记
+  image: https://cdn.jsdelivr.net/gh/amehime/shoka@latest/images/avatar.jpg # 图片地址
+  color: "#7CD17E"

@@ -1,12 +1,12 @@
 ---
 title: 友情链接
-keywords: 友情链接
+keywords: 链接
 description: 沿岸踱步的小伙伴们
-copyright: false
+copyright: ture
 ---
 
 # 本站信息
-- 站名： 沿岸踱步
+- 站名： Yanan^_^Duobu
 - 站长： 沿岸踱步
 - 地址： https://yananduobu.top
 - 头像： ![沿岸踱步](http://localhost:4000/images/avatar.jpg){height="100" width="100"}
@@ -17,14 +17,14 @@ copyright: false
 
 ~~~yml
 ```yml
-- site: #网站的名字
-  owner: #您的名字
-  url: #您的网址
-  desc: #简短描述
-  image: #一张图片
-  color: #方块颜色
+- site: # 网站的名字
+  owner: # 您的名字
+  url: # 您的网址
+  desc: # 简短描述
+  image: # 一张图片
+  color: # 方块颜色
 ```
 ~~~
 
-# 小伙伴们
-{%linksfile friends/_data.yml%}
+# 各位大佬
+{% linksfile friends/_data.yml %}

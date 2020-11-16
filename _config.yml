@@ -130,43 +130,40 @@ markdown:
         options:
           title: "你知道得有点多了╭(╯^╰)╮"
 
-#minify:
-  #html:
-    #enable: true
-    #stamp: false
-    #exclude:
-      #- '**/json.ejs'
-      #- '**/atom.ejs'
-      #- '**/rss.ejs'
-  #css:
-    #enable: true
-    #stamp: false
-    #exclude:
-      #- '**/*.min.css'
-  #js:
-    #enable: true
-    #stamp: false
-    #mangle:
-      #toplevel: true
-    #output:
-    #compress:
-    #exclude:
-      #- '**/*.min.js'
+minify:
+  html:
+    enable: true
+    exclude: # 排除 hexo-feed 用到的模板文件
+      - '**/json.ejs'
+      - '**/atom.ejs'
+      - '**/rss.ejs'
+  css:
+    enable: true
+    exclude:
+      - '**/*.min.css'
+  js:
+    enable: true
+    mangle:
+      toplevel: true
+    output:
+    compress:
+    exclude:
+      - '**/*.min.js'
 
-# algolia:
-#   appId:
-#   apiKey:
-#   adminApiKey:
-#   chunkSize: 5000
-#   indexName:
-#   fields:
-#     - title #必须配置
-#     - path #必须配置
-#     - categories #推荐配置
-#     - content:strip:truncate,0,4000
-#     - gallery
-#     - photos
-#     - tags
+algolia:
+  appId: #Your appId
+  apiKey: #Your apiKey
+  adminApiKey: #Your adminApiKey
+  chunkSize: 5000
+  indexName: "shoka"
+  fields:
+    - title #必须配置
+    - path #必须配置
+    - categories #推荐配置
+    - content:strip:truncate,0,2000
+    - gallery
+    - photos
+    - tags
 
 feed:
     limit: 20
