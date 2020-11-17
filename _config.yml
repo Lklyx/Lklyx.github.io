@@ -144,14 +144,14 @@ minify:
       - '**/*.min.js'
 
 algolia:
-  appId: EXDYoCudeNtahPVAkKU3Xpvo-gzGzoHsz #Your appId
-  apiKey: 0YheoTxWSKTMm6No3i5vYYig #Your apiKey
-  adminApiKey: 0YheoTxWSKTMm6No3i5vYYig #Your adminApiKey
+  appId: UPQXMK928J #Your appId
+  apiKey: 08f4b02c6106b6f578719816d302a4c9 #Your apiKey
+  adminApiKey: e5f3ca76220b66e31b274cf9b3bada2d #Your adminApiKey
   chunkSize: 5000
-  indexName: shoka
+  indexName: yananduobu
   fields:
-    - title "yananduobu" # 必须配置
-    - path "www.yananduobu" # 必须配置
+    - title # 必须配置
+    - path  # 必须配置
     - categories # 推荐配置
     - content:strip:truncate,0,2000
     - gallery
