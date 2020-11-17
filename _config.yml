@@ -46,27 +46,20 @@ future: true
 highlight:
   enable: false # edit for Theme.shoka
   line_number: true
-  auto_detect: true
+  auto_detect: truncate
   tab_replace: ''
 prismjs:
   enable: false # edit for Theme.shoka
 
-# ===================================================================================================
 # Category & Tag
 default_category: uncategorized
 category_map: # edit for Theme.shoka
-
   We-Games: we-games #右上角小标题
   英雄联盟: LOL
   QQ飞车: QQ飞车
-
   历练ing: Growth-Diary #右上角小标题
-  成长日记: Blog
-
+  Blog: Blog
 tag_map:
-
-# ===================================================================================================
-
 
 # Date / Time format
 ## Hexo uses Moment.js to parse and display date
@@ -77,7 +70,7 @@ time_format: HH:mm:ss
 
 # Pagination
 ## Set per_page to 0 to disable pagination
-per_page: 10
+per_page: 8
 pagination_dir: page
 
 # Extensions
