@@ -196,19 +196,19 @@ search:
 # Valine
 # For more information: https://github.com/amehime/MiniValine
 valine:
-  appId: #Your_appId
-  appKey: #Your_appkey
-  placeholder: ヽ(○´∀`)ﾉ♪ # Comment box placeholder
-  avatar: mp # Gravatar style : mp, identicon, monsterid, wavatar, robohash, retro
+  appId: EXDYoCudeNtahPVAkKU3Xpvo-gzGzoHsz #Your_appId
+  appKey: 0YheoTxWSKTMm6No3i5vYYig #Your_appkey
+  placeholder: 踩一个脚印 # Comment box placeholder
+  avatar: monsterid # Gravatar style : mp, identicon, monsterid, wavatar, robohash, retro
   pageSize: 10 # Pagination size
-  lang: en
-  visitor: true # Article reading statistic
-  NoRecordIP: false # Whether to record the commenter IP
-  serverURLs: # When the custom domain name is enabled, fill it in here (it will be detected automatically by default, no need to fill in)
+  lang: zh-CN
+  visitor: true # Article reading statistic 文章访问量统计
+  NoRecordIP: false # Whether to record the commenter IP 是否记录评论着的ip
+  serverURLs: # https://yananduobu.top
   powerMode: true
   tagMeta:
-    visitor: 新朋友
-    master: 主人
+    visitor: 新的朋友
+    master: 博主
     friend: 小伙伴
     investor: 金主大佬
   tagColor:
@@ -217,22 +217,21 @@ valine:
     investor: "var(--color-pink)"
   tagMember:
     master:
-      # - hash of master@email.com
-      # - hash of master2@email.com
+      - hash of 2816828186@qq.com
     friend:
-      # - hash of friend@email.com
-      # - hash of friend2@email.com
+      - hash of friend@email.com
+      - hash of friend2@email.com
     investor:
-      # - hash of investor1@email.com
+      - hash of investor1@email.com
 
 # click with Firework
 fireworks:
   enable: true
   color:
-    # - "rgba(255,182,185,.9)"
-    # - "rgba(250,227,217,.9)"
-    # - "rgba(187,222,214,.9)"
-    # - "rgba(138,198,209,.9)"
+    - "rgba(255,182,185,.9)"
+    - "rgba(250,227,217,.9)"
+    - "rgba(187,222,214,.9)"
+    - "rgba(138,198,209,.9)"
 
 # Quicklink Support
 # For more information: https://github.com/GoogleChromeLabs/quicklink

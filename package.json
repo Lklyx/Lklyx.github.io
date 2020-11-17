@@ -27,7 +27,8 @@
     "hexo-renderer-multi-markdown-it": "^0.1.5",
     "hexo-renderer-stylus": "^2.0.0",
     "hexo-server": "^2.0.0",
-    "hexo-symbols-count-time": "^0.7.1"
+    "hexo-symbols-count-time": "^0.7.1",
+    "valine": "^1.4.14"
   },
   "devDependencies": {
     "hexo-feed": "^1.0.2"
