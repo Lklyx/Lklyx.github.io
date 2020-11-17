@@ -207,7 +207,7 @@ valine:
   serverURLs: # https://yananduobu.top
   powerMode: true
   tagMeta:
-    visitor: 新的朋友
+    visitor: 新朋友
     master: 博主
     friend: 小伙伴
     investor: 金主大佬
