@@ -199,32 +199,34 @@ valine:
   appId: EXDYoCudeNtahPVAkKU3Xpvo-gzGzoHsz #Your_appId
   appKey: 0YheoTxWSKTMm6No3i5vYYig #Your_appkey
   placeholder: 踩一个脚印 # Comment box placeholder
-  avatar: monsterid # Gravatar style : mp, identicon, monsterid, wavatar, robohash, retro
+  avatar: mp # Gravatar style : mp, identicon, monsterid, wavatar, robohash, retro
   pageSize: 10 # Pagination size
   lang: zh-CN
   visitor: true # Article reading statistic 文章访问量统计
   NoRecordIP: false # Whether to record the commenter IP 是否记录评论着的ip
   serverURLs: # https://yananduobu.top
-  powerMode: true
+  powerMode: true # 默认打开输入框的输入特效
   tagMeta:
-    visitor: 新朋友
+    visitor: 博主
     master: 博主
     friend: 小伙伴
     investor: 金主大佬
   tagColor:
-    master: "var(--color-orange)"
-    friend: "var(--color-aqua)"
-    investor: "var(--color-pink)"
+    visitor: "#12A9FE"
+    master: "#12A9FE"
+    admin: "#a77c59"
+    friend: "#ed6ea0"
   tagMember:
     master:
-      - hash of 2816828186@qq.com
+      - 2816828186@qq.com
     friend:
-      - hash of friend@email.com
-      - hash of friend2@email.com
+      - friend@email.com
+      - friend2@email.com
     investor:
-      - hash of investor1@email.com
+      - investor1@email.com
 
 # click with Firework
+
 fireworks:
   enable: true
   color:
