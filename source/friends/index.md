@@ -9,7 +9,7 @@ copyright: ture
 - 站名： Yanan^_^Duobu
 - 站长： 沿岸踱步
 - 地址： https://yananduobu.top
-- 头像： ![沿岸踱步](http://localhost:4000/images/avatar.jpg){height="100" width="100"}
+- 头像： ![沿岸踱步](https://yananduobu.top/images/avatar.jpg){height="100" width="100"}
 - 简介： 沿岸踱步 & 成长日记
 
 # 申请方法
