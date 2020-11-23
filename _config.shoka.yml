@@ -102,12 +102,12 @@ menu:
 # Value before `||` delimiter is the target permalink,
 # secend value is the name of Font icon.
 social:
-  github: https://github.com/yourname || github || "#191717"
-  twitter: https://twitter.com/yourname || twitter || "#00aff0"
-  zhihu: https://www.zhihu.com/people/yourname || zhihu || "#1e88e5"
-  music: https://music.163.com/#/user/home?id=yourid || cloud-music || "#e60026"
-  weibo: https://weibo.com/yourname || weibo || "#ea716e"
+  github: https://github.com/Lklyx || github || "#191717"
+  zhihu: https://www.zhihu.com/people/ci-qing-xiang-bei || zhihu || "#1e88e5"
+  music: https://music.163.com/#/my/m/music/playlist?id=2475692347 || cloud-music || "#e60026"
+  weibo: https://weibo.com/6872931730/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1 || weibo || "#ea716e"
   about: https://about.me/yourname || address-card || "#3b5998"
+  #twitter: https://twitter.com/yourname || twitter || "#00aff0"
   #google: https://plus.google.com/yourname || google
   #email: mailto:yourname@mail.com || envelope || "#55acd5"
   #facebook: https://www.facebook.com/yourname || facebook
