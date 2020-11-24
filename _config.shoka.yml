@@ -93,8 +93,8 @@ menu:
     archives: /archives/ || list-alt
     categories: /categories/ || th
     tags: /tags/ || tags
-  friends: /friends/ || heart
-  链接: /links/ || magic
+  friends: /friends/ || magic
+  空间: /links/ || heart
 
 # Social Links
 # Usage: `Key: permalink || icon || color`
@@ -198,27 +198,28 @@ search:
 valine:
   appId: EXDYoCudeNtahPVAkKU3Xpvo-gzGzoHsz #Your_appId
   appKey: 0YheoTxWSKTMm6No3i5vYYig #Your_appkey
-  placeholder: 踩一个脚印 # Comment box placeholder
+  placeholder: 留下你的足迹 # Comment box placeholder
   avatar: mp # Gravatar style : mp, identicon, monsterid, wavatar, robohash, retro
-  pageSize: 10 # Pagination size
+  pageSize: 8 # Pagination size
   lang: zh-CN
   visitor: true # Article reading statistic 文章访问量统计
   NoRecordIP: false # Whether to record the commenter IP 是否记录评论着的ip
-  serverURLs: # https://yananduobu.top
+  serverURLs: # https://yananduobu.top。启用自定义域名
   powerMode: true # 默认打开输入框的输入特效
   tagMeta:
-    visitor: 博主
+    visitor: 新朋友
     master: 博主
     friend: 小伙伴
     investor: 金主大佬
   tagColor:
-    visitor: "#12A9FE"
-    master: "#12A9FE"
-    admin: "#a77c59"
-    friend: "#ed6ea0"
+    visitor: "var(--color-orange)"
+    master: "var(--color-aqua)"
+    friend: "var(--color-pink)"
+    investor: "var(--color-pink)"
   tagMember:
-    master:
-      - 2816828186@qq.com
+    visitor:
+    master: 
+      2816828186@qq.com
     friend:
       - friend@email.com
       - friend2@email.com
