@@ -213,12 +213,11 @@ valine:
     investor: 金主大佬
   tagColor:
     visitor: "var(--color-orange)"
-    master: "var(--color-aqua)"
+    master: "var(--primary-color)"
     friend: "var(--color-pink)"
     investor: "var(--color-pink)"
   tagMember:
-    visitor:
-    master: 
+    master:
       - 131ab989394372ace9fd15f9fc257a75
     friend:
       - friend@email.com
