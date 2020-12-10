@@ -16,10 +16,4 @@ npm install hexo-deployer-git --save
 6、生成静态页面并部署
 hexo clean && hexo g --d
 
-7、有时候提交主题文件夹失败，提交上去以后打不开。那就先移除空的主题文件夹。
-git rm --cached themes/ + 《你的主题文件夹名字》，译：意思是移除在主题文件之下的某个主题文件夹
-移除之后，使用git status 译：查看移除主题的状态。移除成功以后再添加
-git add themes/ + 《你的主题文件夹名字》译：意思是在主题文件之下添加某个主题文件夹
-使用：git shtatus 译：查看添加主题的状态。之后再执行 git add . git commit -m "test"。git push 等操作就可以了。
-
 
