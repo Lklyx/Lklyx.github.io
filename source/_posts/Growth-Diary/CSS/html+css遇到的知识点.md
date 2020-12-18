@@ -42,3 +42,80 @@ tags:
 >
 > **180deg**：设置渐变开始的角度
 
+## 利用css画三角形
+
+
+
+> 1. html
+>
+>    ```html
+>      <view class="xiansh">
+>        <view class="up sanjiao"></view>
+>        <view class="down sanjiao"></view>
+>        <view class="left sanjiao"></view>
+>        <view class="right sanjiao"></view>
+>      </view>
+>    ```
+>
+> 2. css
+>
+>    ```css
+>    .xiansh{
+>      margin: 0 auto;
+>      width: 400rpx;
+>      overflow: hidden;
+>      position: relative;
+>    }
+>    .sanjiao{
+>      border-style: solid;
+>      border-color: transparent transparent #cccccc;
+>    }
+>    .up{
+>      position:absolute;
+>      top: 82rpx;
+>      left: 179rpx;
+>      width: 0rpx;
+>      height: 0rpx;
+>      border-width: 0rpx 25rpx 25rpx;
+>     
+>    }
+>    .down{
+>      position:absolute;
+>      bottom: 85rpx;
+>      left: 179rpx;
+>      width: 0rpx;
+>      height: 0rpx;
+>      transform: rotate(180deg);
+>      border-width: 0rpx 25rpx 25rpx;
+>    }
+>    .left{
+>      position:absolute;
+>      top: 179rpx;
+>      left: 70rpx;
+>      width: 0rpx;
+>      height: 0rpx;
+>      transform: rotate(-90deg);
+>      border-width: 0rpx 25rpx 25rpx;
+>    }
+>    .right{
+>      position:absolute;
+>      top: 179rpx;
+>      right: 70rpx;
+>      width: 0rpx;
+>      height: 0rpx;
+>      transform: rotate(90deg);
+>      border-width: 0rpx 25rpx 25rpx;
+>    }
+>    ```
+
+## 给div加阴影
+
+> box-shadow:2px 2px 10px #909090;
+>
+> 第一个参数是x轴阴影段长度
+>
+> 第二个参数是y轴阴影段长度
+>
+> 第三个参数是往四周阴影段长度
+>
+> 第四个参数是阴影段颜色
