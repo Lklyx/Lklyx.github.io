@@ -71,15 +71,15 @@ darkmode: false
 
 # By default the page will automatically scroll to the last viewed position
 # if `false`, automatic positioning will be turned off 这个是自动保存浏览的位置下次打开继续到上一次浏览的位置
-auto_scroll: false
+auto_scroll: true
 
-# Whether to show the loading cat
+# Whether to show the loading cat 是否显示加载时候旋转的那只猫
 loader:
   start: false # When entering the page
   switch: false # When switching to another page
 
 sidebar:
-  # Sidebar Position.
+  # Sidebar Position. 导航栏的位置
   position: right
   # position: right
   # Replace the default avatar image and set the url here.
