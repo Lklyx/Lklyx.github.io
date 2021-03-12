@@ -94,7 +94,7 @@ menu:
     categories: /categories/ || th
     tags: /tags/ || tags
   friends: /friends/ || magic
-  空间: /links/ || heart
+  空间: /space/ || heart
 
 # Social Links
 # Usage: `Key: permalink || icon || color`

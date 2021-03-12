@@ -1,5 +1,5 @@
 ---
-title: vue中遇到的知识点。
+jstitle: vue中遇到的知识点。
 date: 2020/11/25
 categories:
 - [历练ing,VUE]
@@ -7,7 +7,7 @@ tags:
 - VUE
 - 成长
 ---
-## 绑定事件，根据下标判断当前的元素
+# 绑定事件，根据下标判断当前的元素
 
 用一个`li`渲染八个list小div，当鼠标放上去的时候，给他们绑定两个事件，一个移入事件，一个移除事件。首先，用css的`hover`属性给每一个div添加一个背景图片，鼠标放上去的时候背景为灰色。移开就恢复黑色。
 
@@ -113,7 +113,7 @@ tags:
 
    鼠标放上去的时候，显示当前div右上角的设置标志。移开则恢复没有选中状态。
 
-## 组件间的传值
+# 组件间的传值
 
 > 1. `父传子`
 >
@@ -197,3 +197,83 @@ tags:
 >    目前我使用的是，先把他们都传给父组件，再又父组件又传给其他子组件。所有就转换成了，子传父、父传子的问题了。
 >
 >    其他方法等待更新。。。
+
+# vue中引用bootstarpVue
+
+> 1. 进入你的项目里
+>
+> 2. 打开命令行工具，安装BootstrapVue,
+>
+> 3. ```javascript
+>    npm i bootstrap-vue -S
+>    ```
+>
+> 4. 安装后，打开main.js主程序入口文件
+>
+> 5. ```js
+>    import BootstrapVue from 'bootstrap-vue'
+>    
+>    import 'bootstrap/dist/css/bootstrap.css'
+>    import 'bootstrap-vue/dist/bootstrap-vue.css'
+>    
+>    // 注册为全局组件
+>    Vue.use(BootstrapVue)
+>    
+>    ```
+>
+> 6. 完成，可以直接使用它的组件了
+
+# vue自动生成二维码
+
+> 1. 安装
+>
+>    ```js
+>    npm install vue-qr --save
+>    ```
+>
+> 2. 导入vue项目中使用
+>
+>    ```js
+>    <template>
+>      <vue-qr :text="downloadData.url" :margin="0" colorDark="#f67b29" colorLight="#fff" :logoSrc="downloadData.icon + '?cache'" :logoScale="0.3" :size="200"></vue-qr>
+>    </template>
+>     
+>    <script>
+>    import vueQr from 'vue-qr'
+>    export default {
+>        components: {
+>            vueQr
+>        },
+>        data() {
+>            return {
+>                downloadData: {
+>                    url: '扫码访问的链接地址',
+>                    icon: '随便一张图片的地址也行'
+>                }
+>            }
+>        }
+>    }
+>    </script>
+>    ```
+>
+>    注：上方代码中的 logoSrc 对应的图片url地址 我加上了 ?cache 是为了解决资源请求的跨域问题。具体情况展现可自行研究。
+>
+>    
+>
+> 3. | 属性       | 介绍                                                 |
+>    | ---------- | ---------------------------------------------------- |
+>    | size       | 二维码宽高大小，因为是正方形，所以设一个参数即可     |
+>    | margin     | 默认边距20px，不喜欢的话自己设为0                    |
+>    | colorDark  | 实点的颜色，注意要和colorLight一起设置才有效         |
+>    | colorLight | 空白的颜色，注意要和colorDark一起设置才有效          |
+>    | bgSrc      | 嵌入背景图地址，没什么卵用，不建议设置               |
+>    | logoSrc    | 二维码中间的图，这个是好东西，设置一下显得专业点     |
+>    | logoScale  | 中间图的尺寸，不要设太大，太大会导致扫码失败的       |
+>    | dotScale   | 那些小点点的大小，这个也没什么好纠结的，不建议设置了 |
+>
+>    总结：主要是运用组件自动生成，二维码里面的类容就是text中的类容。
+
+
+
+
+

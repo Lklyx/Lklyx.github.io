@@ -18,6 +18,7 @@
     "hexo-algoliasearch": "^1.0.0",
     "hexo-asset-image": "git+https://github.com/CodeFalling/hexo-asset-image.git",
     "hexo-autoprefixer": "^2.0.0",
+    "hexo-blog-encrypt": "^3.1.5",
     "hexo-deployer-git": "^2.1.0",
     "hexo-generator-archive": "^1.0.0",
     "hexo-generator-category": "^1.0.0",
