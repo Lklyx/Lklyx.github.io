@@ -159,22 +159,50 @@ algolia:
     - photos
     - tags
 
-# 安全
+# 设置博客文章密码
 encrypt: # hexo-blog-encrypt
   enable: true
   abstract: 这里有东西被加密了，需要输入密码查看哦。
   message: 请输入密码查看，密码为6位数哦~。
   tags:
-  - {name: tagName, password: 密码}
+  - {name: tagName, password: mima}
   template: <div id="hexo-blog-encrypt" data-wpm="{{hbeWrongPassMessage}}" data-whm="{{hbeWrongHashMessage}}"><div class="hbe-input-container"><input type="password" id="hbePass" placeholder="{{hbeMessage}}" /><label>{{hbeMessage}}</label><div class="bottom-line"></div></div><script id="hbeData" type="hbeData" data-hmacdigest="{{hbeHmacDigest}}">{{hbeEncryptedData}}</script></div>
-  wrong_pass_message: 抱歉, 这个密码看着不太对, 请再试试.
-  wrong_hash_message: 抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.
+  wrong_pass_message: 抱歉, 这个密码看着不太对, 请再试试。
+  wrong_hash_message: 抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容。
 
 # password: ziji
 # abstract: 这里有东西被加密了，需要输入密码查看哦。
 # message: 请输入密码查看，密码为6位数~。
 # wrong_pass_message: 抱歉，这个密码看着不太对，请再试试。
 # wrong_hash_message: 抱歉，这个文章不能被纠正，不过您还是能看看解密后的内容。
+
+# 设置博客的宠物
+live2d:
+  enable: true
+  scriptFrom: local
+  pluginRootPath: live2dw/
+  pluginJsPath: lib/
+  pluginModelPath: assets/
+  model:
+    # use: live2d-widget-model-hibiki jk小萝莉
+    use: live2d-widget-model-koharu # 海军小萝莉
+    # use: live2d-widget-model-miku 未来知音小萝莉
+    # use: live2d-widget-model-tororo 超可爱的小白猫
+    # use: live2d-widget-model-tsumiki 领带小萝莉
+    # use: live2d-widget-model-wanko 碗里的小熊
+    # use: live2d-widget-model-z16 小姐姐
+    # use: live2d-widget-model-chitose 绅士男
+    # use: live2d-widget-model-gf 动态GF
+  display:
+    # 设置模型的位置
+    position: right
+    width: 220
+    height: 320
+  mobile:
+    show: false
+  react:
+    opacityDefault: 1
+    opacityOnHover: 1
 
 
 feed:

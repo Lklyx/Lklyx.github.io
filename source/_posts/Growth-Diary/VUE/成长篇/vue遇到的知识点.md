@@ -1,5 +1,5 @@
 ---
-jstitle: vue中遇到的知识点。
+title: VUE中遇到的知识点。
 date: 2020/11/25
 categories:
 - [历练ing,VUE]
