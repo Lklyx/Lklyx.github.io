@@ -196,7 +196,7 @@ live2d:
   display:
     # 设置模型的位置
     position: right
-    width: 220
+    width: 200
     height: 320
   mobile:
     show: false
