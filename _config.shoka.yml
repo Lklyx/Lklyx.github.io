@@ -165,6 +165,15 @@ reward:
     wechatpay: /wechatpay.png #微信支付
     alipay: /alipay.png # 支付宝支付
 
+# 添加文章加密
+encrypt: # hexo-blog-encrypt
+  enable: true
+  abstract: 这里有东西被加密了，需要输入密码查看哦。
+  message: 请输入密码查看，密码为6位数哦~。
+  template: <div id="hexo-blog-encrypt" data-wpm="{{hbeWrongPassMessage}}" data-whm="{{hbeWrongHashMessage}}"><div class="hbe-input-container"><input type="password" id="hbePass" placeholder="{{hbeMessage}}" /><label>{{hbeMessage}}</label><div class="bottom-line"></div></div><script id="hbeData" type="hbeData" data-hmacdigest="{{hbeHmacDigest}}">{{hbeEncryptedData}}</script></div>
+  wrong_pass_message: 抱歉, 这个密码看着不太对, 请再试试.
+  wrong_hash_message: 抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.
+
 
 # ---------------------------------------------------------------
 # Third Party Plugins & Services Settings

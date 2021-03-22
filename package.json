@@ -8,6 +8,7 @@
     "deploy": "hexo deploy",
     "server": "hexo server"
   },
+  "hexo-blog-encrypt": "^3.1.6",
   "hexo": {
     "version": "5.2.0"
   },
@@ -18,7 +19,7 @@
     "hexo-algoliasearch": "^1.0.0",
     "hexo-asset-image": "git+https://github.com/CodeFalling/hexo-asset-image.git",
     "hexo-autoprefixer": "^2.0.0",
-    "hexo-blog-encrypt": "^3.1.5",
+    "hexo-blog-encrypt": "^3.1.6",
     "hexo-deployer-git": "^2.1.0",
     "hexo-generator-archive": "^1.0.0",
     "hexo-generator-category": "^1.0.0",
