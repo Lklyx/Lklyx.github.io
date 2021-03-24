@@ -419,3 +419,23 @@ export default {
 
 ```
 
+# 分页效果
+
+```vue
+<el-col :span="24">
+    <el-pagination
+    layout="prev, pager, next"
+    :page-size="device.ps"
+    :total="device.trw"
+    @current-change="pageChange"
+    />
+ </el-col>
+```
+
+```js
+pageChange(pn) {
+   loadDevices(this, pn);
+},
+```
+
+分页效果使用在element ui的表格中，表格数据过多时，使它可以点击下一页。实现翻页，让页面美化。上面代码中，`layou`t是组件的布局，其中**prev**是表示上一页，默认是一个箭头。可以换为**prev-test**+文字，自定义文字。反之`next`。中间的pager是组件的主体部分，显示一共几页。要给分页按钮添加颜色使用background属性即可。**page-size**每页显示条目个数，即每页多少行。**total**总的条目数，一共有多少行。pn代表当前行。点击方法，点击以换分页显示数据。ps代表每页可以显示多少行。
