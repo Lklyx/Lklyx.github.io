@@ -54,12 +54,23 @@ prismjs:
 # Category & Tag
 default_category: uncategorized
 category_map: # edit for Theme.shoka
-  We-Games: we-games #右上角小标题
-  英雄联盟: LOL
+  # 分类解说：如下面 ① We-Game: ② We-Games。当然不需要更改名字的不用到这里来配置。.md文件中带一张名为cover的图片既可。
+  # 都是键值对的方式，左边都是需要显示出来的文字（自己想改的文字），右边则是文件夹的名字。
+  # 在md文件中，头部标签中，categories: - [We-Games,英雄联盟,刺客]，categories：是分类的路径，第一个是第一层文件夹改过之后的名字，
+  # 也就是分类卡片右上角显示的文字。第二个是第二层文件夹改过之后的名字，也就是分类卡片正中间显示的文字，第三个是卡片翻转以后显示的文字
+  # 如果没在分类路径（categories）中添加。如：categories: - [We-Games,英雄联盟,刺客]，则卡片翻转以后直接显示文章的title标题。
+  # 注意：必须在.md文件同路径或者上一层路径中添加一张以cover命名的.jpg为后缀名的图片作为分类卡片的背景图。
+
+  We-Games: We-Games #右上角小标题
+  英雄联盟: LOL # 自定义名字：英雄联盟。文件夹名字：LOL
   QQ飞车: QQ飞车
+
   历练ing: Growth-Diary #右上角小标题
   Blog: Blog
   WX-小程序: WX-APP
+
+  Diary: Diary #右上角小标题
+  记录生活: 2021年
 tag_map:
 
 # Date / Time format
