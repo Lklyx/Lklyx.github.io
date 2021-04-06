@@ -699,5 +699,4 @@ str.replaceAll(regex, replacer)
 
 # 正则的扩展
 
-内容过于多不易记请直接看阮一峰老师的笔记[ES6正则的扩展](https://es6.ruanyifeng.com/#docs/regex#RegExp-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0)
-
+内容过多不易记、请直接看阮一峰老师的笔记[ES6正则的扩展](https://es6.ruanyifeng.com/#docs/regex)
