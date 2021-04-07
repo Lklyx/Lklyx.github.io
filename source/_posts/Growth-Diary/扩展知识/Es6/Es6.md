@@ -700,3 +700,19 @@ str.replaceAll(regex, replacer)
 # 正则的扩展
 
 内容过多不易记、请直接看阮一峰老师的笔记[ES6正则的扩展](https://es6.ruanyifeng.com/#docs/regex)
+
+# 数值的扩展
+
+新增内容较多、用到的时候可以自行查看[数值的扩展](https://es6.ruanyifeng.com/#docs/number)
+
+> 1. 二进制和八进制表示法
+> 2. Number.isFinite(), Number.isNaN()
+> 3. Number.parseInt(), Number.parseFloat()
+> 4. Number.isInteger()
+> 5. Number.EPSILON
+> 6. 安全整数和 Number.isSafeInteger()
+> 7. 指数运算符
+> 8. BigInt 数据类型
+
+# Promise 对象
+
