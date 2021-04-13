@@ -183,7 +183,7 @@ encrypt: # hexo-blog-encrypt
 pangu: false
 
 # bgm
-audio: # 音频播放
+# audio: # 音频播放
   # - title: 列表1
   #   list:
   #    - https://music.163.com/#/playlist?id=2943811283
@@ -191,6 +191,20 @@ audio: # 音频播放
   # - title: 列表2
   #   list:
   #    - https://music.163.com/#/playlist?id=2031842656
+	
+audio:
+  - title: 醉倒温柔乡
+    list: 
+    - https://y.qq.com/n/yqq/playlist/7823950326.html
+  - title: 古韵尤存
+    list:
+    - https://y.qq.com/n/yqq/playlist/2551805025.html
+  - title: English-Songs # 英文歌单
+    list:
+    - https://y.qq.com/n/yqq/playlist/2644438503.html
+  - title: 网易云
+    list:
+    - https://music.163.com/#/playlist?id=2475692347
 
 # random image api
 image_server: # "https://acg.xydwz.cn/api/api.php"
