@@ -199,12 +199,12 @@ audio:
   - title: 古韵尤存
     list:
     - https://y.qq.com/n/yqq/playlist/2551805025.html
-  # - title: English-Songs # 英文歌单
-  #   list:
-  #   - https://y.qq.com/n/yqq/playlist/2644438503.html
-  # - title: 网易云
-  #   list:
-  #   - https://music.163.com/#/my/m/music/playlist?id=2475692347
+  - title: English-Songs # 英文歌单
+    list:
+    - https://y.qq.com/n/yqq/playlist/2644438503.html
+  - title: 网易云
+    list:
+    - https://music.163.com/#/my/m/music/playlist?id=2475692347
 
 # random image api
 image_server: # "https://acg.xydwz.cn/api/api.php"
