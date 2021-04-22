@@ -248,7 +248,47 @@ tags:
 >
 >    总结：主要是运用组件自动生成，二维码里面的类容就是text中的类容。
 
+# Vue + Element ui导出Excel表格
 
+```javascript
+// 导出excel表格，传入两个参数，一个是导出时候的表名，一个是表格的id
+ export function exportExcel(tabname,id) {
+  // .table捕获excel的表格
+  console.log(tabname);
+  // 获取表格的id
+  let wb = XLSX.utils.table_to_book(document.getElementById(id));
+     // 这里的id是调用的方法传过来的
+  let wbout = XLSX.write(wb, {
+    bookType: "xlsx",
+    bookSST: true,
+    type: "array"
+  });
+  // 导出的时候，表格显示的名字。这里也是调用的方法传过来的
+  let name = tabname
+  try {
+    FileSaver.saveAs(
+      new Blob([wbout], { type: "application/octet-stream" }),
+      name + ".xlsx"
+    );
+  } catch (e) {
+    if (typeof console !== "undefined") console.log(e, wbout);
+  }
+  return wbout;
+}
 
+```
 
+因为多地方需要用到导出表格，所以把他封装成一个方法，使用++export++{.primary}抛出。到时候再需要的页面直接引用就可以了。如下：
+
+```javascript
+// 引用路径
+import {exportExcel} from '@/patch/api'
+methods: {
+   daochuChangs(){
+      const name = "模块采购"
+      // 传入需要导出的表名，和表格的id，此处的id绑定在data中。所以用了this。
+      exportExcel(name,this.tableid)
+   }
+},
+```
 
