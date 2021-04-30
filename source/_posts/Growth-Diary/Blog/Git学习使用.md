@@ -1,5 +1,5 @@
 ---
-title: Git仓库管理
+title: Git常用命令
 date: 2021/04/12
 categories:
 - [历练ing,Blog]
@@ -231,5 +231,17 @@ git checkout filename回退未添加到缓存区的文件，但是对未track的
 
 ```js
 rm filename
+```
+
+# git查看当前的仓库地址
+
+```js
+git remote -v
+```
+
+# git查看当前仓库的基本信息
+
+```js
+git remote show origin
 ```
 
