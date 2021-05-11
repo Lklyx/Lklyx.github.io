@@ -77,7 +77,7 @@ tags:
 >      width: 0rpx;
 >      height: 0rpx;
 >      border-width: 0rpx 25rpx 25rpx;
->     
+>        
 >    }
 >    .down{
 >      position:absolute;
@@ -119,3 +119,14 @@ tags:
 > 第三个参数是往四周阴影段长度
 >
 > 第四个参数是阴影段颜色
+
+# 标题超出多少行用…显示
+
+> ```
+> display: -webkit-box;
+>     overflow: hidden;
+>     -webkit-box-orient: vertical;
+>     -webkit-line-clamp: 2; // 后面的数字代表第几行后面为...
+> ```
+>
+> 
