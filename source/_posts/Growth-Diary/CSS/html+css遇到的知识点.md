@@ -77,7 +77,7 @@ tags:
 >      width: 0rpx;
 >      height: 0rpx;
 >      border-width: 0rpx 25rpx 25rpx;
->        
+>           
 >    }
 >    .down{
 >      position:absolute;
@@ -120,13 +120,14 @@ tags:
 >
 > 第四个参数是阴影段颜色
 
-# 标题超出多少行用…显示
+## 标题超出多少行用…显示
 
-> ```
+> ```css
 > display: -webkit-box;
->     overflow: hidden;
->     -webkit-box-orient: vertical;
->     -webkit-line-clamp: 2; // 后面的数字代表第几行后面为...
+>    overflow: hidden;
+>    -webkit-box-orient: vertical;
+>    -webkit-line-clamp: 2; // 后面的数字代表第几行后面为...
 > ```
 >
-> 
+> 标题和表格中，文字超出一定长度后省略，使用`…`代替。
+
