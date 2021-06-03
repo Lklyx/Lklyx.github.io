@@ -11,6 +11,8 @@ tags:
 
 linux中没有盘符的概念，只有一个根目录。根目录用`/`表示。
 
+![image-20210528135454791](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20210528135454791.png)
+
 1. `/`根目录下有以下几个文件。
 
    - `/bin`
@@ -173,7 +175,7 @@ linux中没有盘符的概念，只有一个根目录。根目录用`/`表示。
    sudo passwd user1 // 使用命令sudo + 密码 + 需要设置密码的用户名。这里需要重复一遍
    ```
 
-   <img src="../../../../images/扩展知识/Linux/image-20210527102243369.png" alt="sudo_passwd_user"  />
+   ![查看创建的用户](E:\Lklyx.github.io\source\images\扩展知识\Linux\image-20210527102243369.png)
 
 2. 给root设置密码：
 
