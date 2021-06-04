@@ -36,8 +36,12 @@ Nginx（engine x）是一个高性能的HTTP和反向代理服务器，特点是
 >    ```js
 >    systemctl start firewalld
 >    ```
->
 >    
+> 3. 关闭防火墙
+>
+>    ```js
+>    systemctl stop firewalld
+>    ```
 >
 > 3. 查看防火墙中开放的端口
 >
@@ -131,12 +135,12 @@ Nginx（engine x）是一个高性能的HTTP和反向代理服务器，特点是
 tar -xvf + apache-tomcat-9.0.46-fulldocs.tar.gz // + 后面这个是安装包名字。
 ```
 
-# 配置安装jdk及环境配置。
+# Linux中配置安装jdk及环境配置。
 
-我们直接可以使用yum一键安装
+## 我们直接可以使用yum一键安装
 
 ```java
-yum install -y java-1.8.0-openjdk-devel.x86_64
+yum install -y java-1.8.0-openjdk-devel // 这里装完以后记得去配置jdk环境变量
 ```
 
 查看java版本，
@@ -145,3 +149,48 @@ yum install -y java-1.8.0-openjdk-devel.x86_64
 java -version
 ```
 
+## 配置环境变量
+
+1. 找到java安装的路径
+
+   ```js
+   whereis java // 查看路径
+   // /usr/bin/java /usr/lib/java /etc/java /usr/share/java /usr/share/man/man1/java.1.gz
+   
+    ls -lrt /usr/bin/java // 查看java的bin之下路径
+   // /usr/bin/java -> /etc/alternatives/java
+   
+   ls -lrt /etc/alternatives/java // 查看需要配置环境的路径
+    // /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64/jre/bin/java
+   ```
+
+2. 进入文件夹配置环境变量
+
+   ```java
+   vim /etc/profile // 进入java环境变量配置单的文件
+   ```
+
+   在文件的末尾处添加以下代码：
+
+   ```java
+   export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.292.b10-1.1.al7.x86_64
+   export PATH=$JAVA_HOME/jre/bin:$PATH
+   export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+   ```
+
+   `注意：`上面代码的第一行，**export JAVA_HOME=**之后，改为你自己的路径，切注意，路径不包含版本号、系统号之后的`/jre/bin/java` 这个路径。
+
+3. 使配置生效
+
+   ```java
+   source /etc/profile
+   ```
+
+4. 查看JAVA_HOME环境变量
+
+   ```java
+   echo $JAVA_HOME
+   // /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64/jre/bin/java
+   ```
+
+   /usr/src/jdk-11.0.11
