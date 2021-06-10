@@ -38,3 +38,36 @@ yum -y install lrzsz
 我靠。这个问题我搞了一天。原来是因为服务器没有配置安全组。我的是阿里云服务器，需要配置安全组。![image-20210603154118108](E:\Lklyx.github.io\source\_posts\Growth-Diary\扩展知识\Nginx\Nginx\image-20210603154118108.png)
 
 感觉这个巨坑了。有的服务器不需要手动配置安全组。
+
+# 阿里服务器需要配置安全组
+
+![image-20210607115621226](E:\Lklyx.github.io\source\_posts\Growth-Diary\扩展知识\Nginx\Nginx\image-20210607115621226.png)
+
+# make: *** No targets specified and no makefile found. Stop.
+
+第一种：
+
+第一、update最新版本系统软件
+
+yum update
+
+这个必须要执行后才可以安装我们的系统软件或者一键包。
+
+第二、编译缺失关联软件
+
+yum install gcc build-essential
+
+编译执行完毕之后，我们在执行./configure && make这类的执行命令就可以解决问题。
+
+
+第二种：
+
+一、Linux下各种依赖都已经安装,是因为没有找到makefile。
+
+如果是自己写的，确定在当前目录下；如果是源码安装，先运行./configure，生成makefile，再执行make，即可正常运行。
+
+二、如果没有安装其他依赖先安装依赖
+
+yum install gcc gcc-c++ autoconf automake
+
+yum -y install zlib zlib-devel openssl openssl-devel pcre pcre-devel （安装依赖zlib、openssl和pcre
