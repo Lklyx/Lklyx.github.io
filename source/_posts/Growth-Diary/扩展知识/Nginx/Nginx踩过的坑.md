@@ -71,3 +71,30 @@ yum install gcc build-essential
 yum install gcc gcc-c++ autoconf automake
 
 yum -y install zlib zlib-devel openssl openssl-devel pcre pcre-devel （安装依赖zlib、openssl和pcre
+
+# 在centOs虚拟机中无法使用yum命令
+
+敲yum命令时，出现以下错误：
+
+```js
+[root@Linux1 home]# yum -y install gcc zlib zlib-devel pcre-devel openssl openssl-devel
+Loaded plugins: fastestmirror, refresh-packagekit, security
+Loading mirror speeds from cached hostfile
+YumRepo Error: All mirror URLs are not using ftp, http[s] or file.
+ Eg. Invalid release/repo/arch combination/
+removing mirrorlist with no valid mirrors: /var/cache/yum/x86_64/6/base/mirrorlist.txt
+Error: Cannot find a valid baseurl for repo: base
+```
+
+首先，这里说一下具体的原因：
+
+> 1. CentOS 6已经随着2020年11月的结束进入了EOL（Reaches End of Life），不过有一些老设备依然需要支持，CentOS官方也给这些还不想把CentOS6扔进垃圾堆的用户保留了最后一个版本的镜像，只是这个镜像不会再有更新了
+>
+> 2. 官方便在12月2日正式将CentOS 6相关的软件源移出了官方源，随之而来逐级镜像也会陆续将其删除。
+>
+> 3. 不过有一些老设备依然需要维持在当前系统，CentOS官方也给这些还不想把CentOS6扔进垃圾堆的用户保留了各个版本软件源的镜像，只是这个软件源不会再有更新了。
+>
+>    `简单的说就是`：Centos 6已经不被官方支持，所以想要使用就要用其他代理比如阿里云Vault镜像。
+>
+>    所以我下面使用的是阿里云的镜像。
+
