@@ -13,6 +13,8 @@ tags:
 
 学习视屏地址[Nginx](https://www.bilibili.com/video/BV1j4411K7g2?from=search&seid=11242539390432733612)
 
+虚拟机安装视频[centOs](https://www.bilibili.com/video/BV15z4y197sk?t=1191)
+
 # Nginx概述
 
 Nginx（engine x）是一个高性能的HTTP和反向代理服务器，特点是占用内存少，并发能力强，事实上，Nginx的并发能力确实在同类型的网页服务器中表现较好，中国大陆使用nginx的网站用户有：百度、京东、新浪、网易、腾讯、淘宝等。
@@ -104,6 +106,7 @@ java -version
    
    ls -lrt /etc/alternatives/java // 查看需要配置环境的路径
     // /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64/jre/bin/java
+   /usr/lib/jvm/jre-1.7.0-openjdk.x86_64/bin/java
    ```
 
 2. 进入文件夹配置环境变量
@@ -236,29 +239,29 @@ java -version
 
    在目录：**usr/src**下创建两个文件夹，分别为tomcat8080、tomcat8081。
 
-   ```js
+   ```cmd
    mkdir tomcat8080
    mkdir tomcat8081
    ```
 
    这是可以把之前的tomcat进程关闭。
 
-   ```js
-   // 查看当前的tomcat进程
+   ```cmd
+   # 查看当前的tomcat进程
    ps -ef | grep tomcat
-   // 关闭进程
-   sill -9 + id  // 这里是数字9，而不是字母G,ID.查看进程时前面的就是
+   # 关闭进程
+   sill -9 + id # 这里是数字9，而不是字母G,ID.查看进程时前面的就是
    ```
 
    在两个文件里面分别放入tomcat的安装包、并解压、启动（**/usr/src/tomcat8081/apache-tomcat-7.0.70/bin**）之下，执行命令
 
-   ```js
+   ```cmd
    ./startup.sh 
    ```
 
    8080 和8081 文件夹中的tomcat都启动以后，8080默认的端口号就是8080，所以不用我们修改。我们需要进入8081文件夹中，修改它的配置文件。路径为：**/usr/src/tomcat8081/apache-tomcat-7.0.70/conf** 之中的`server.xml`文件。
 
-   ```js
+   ```cmd
    vi server.xml
    ```
 
@@ -302,7 +305,7 @@ java -version
 
 在**http**块中，加一个==upstreat myserver==后面的**myserver**是名字，可以自定义。在新加块中加上我们的服务器列表。
 
-```
+```cmd
 upstreat myserver{
 	server 106.15.176.231:8080
 	server 106.15.176.231:8081
@@ -311,9 +314,9 @@ upstreat myserver{
 
 在**http==>server**之中，修改`server_name` 的值为自己的ip地址。然后在之下的`location`中，使用proxy_pass  http:// + 上面自定义的名字。实现效果。
 
-```apl
+```cmd
 location / {
-	proxy_pass  http://myserver  //这里的myserver是自定义名字。
+	proxy_pass  http://myserver  #这里的myserver是自定义名字。
 }
 ```
 
@@ -327,7 +330,7 @@ location / {
 
    weight代表权重，默认为1.权重越高被分配的客户端越多。指定轮询几率，weight和访问比率成正比，用于后端服务器性能不均的情况。例：
 
-   ```js
+   ```cmd
    upstreat myserver{
    	server 106.15.176.231:8080  weight=5;
    	server 106.15.176.231:8081  weight=10;
@@ -338,9 +341,9 @@ location / {
 
 3. **ip_hash**
 
-   ```js
+   ```cmd
    upstreat myserver{
-   ip_hash;  //加上这句话就是ip_hash
+   ip_hash;  #加上这句话就是ip_hash
    	server 106.15.176.231:8080;
    	server 106.15.176.231:8081;
    }
@@ -352,11 +355,11 @@ location / {
 
    按后端服务器的响应时间来分配请求，响应时间短的优先分配。
 
-   ```js
+   ```cmd
    upstreat myserver{
    	server 106.15.176.231:8080;
    	server 106.15.176.231:8081;
-   	fair;  //加上这句话就是fair策略
+   	fair;  #加上这句话就是fair策略
    }
    ```
 
@@ -385,11 +388,21 @@ location / {
 
 # Nginx配置高可用集群
 
-1. 什么是高可用？
+学习视频[高可用集群](https://www.bilibili.com/video/BV1zJ411w7SV?p=14&spm_id_from=pageDriver)
 
-   - 需要两台nginx服务器
-   2. 需要keepalived
-   3. 需要虚拟IP
+1. 高可用集群
+
+   - 什么是高可用？
+
+     高可用HA（High Availability）是分布式系统架构设计中必须考虑的因素之一，它通常是指，通过设计减少系统不能提供服务的时间。如果一个系统能够一直提供服务，那么这个可用性则是百分之百，但是天有不测风云。所以我们只能尽可能的去减少服务的故障。
+
+   - 解决的问题？
+
+     在生产环境上很多时候是以`Nginx`做反向代理对外提供服务，但是一天Nginx难免遇见故障，如：服务器宕机。当`Nginx`宕机那么所有对外提供的接口都将导致无法访问。
+
+   - 双机热备份？
+
+     这种方案是国内企业中最为普遍的一种高可用方案，双机热备其实就是指一台服务器在提供服务，另一台为某服务的备用状态，当一台服务器不可用另外一台就会顶替上去。
 
 2. 配置高可用的准备工作
 
@@ -419,4 +432,85 @@ location / {
    vi keepalievd.conf // 进入配置文件
    ```
 
-   
+4. 完成高可用配置（主从配置）
+
+   1. **修改主机（192.168.16.128）keepalived配置文件**
+
+      ```cmd
+      #检测脚本
+      vrrp_script chk_http_port {
+          script "/usr/local/src/check_nginx_pid.sh" #心跳执行的脚本，检测nginx是否启动
+          interval 2                          #（检测脚本执行的间隔，单位是秒）
+          weight 2                            #权重
+      }
+      #vrrp 实例定义部分
+      vrrp_instance VI_1 {
+          state MASTER            # 指定keepalived的角色，MASTER为主，BACKUP为备
+          interface ens33         # 当前进行vrrp通讯的网络接口卡(当前centos的网卡) 用ifconfig查看你具体的网卡
+          virtual_router_id 66    # 虚拟路由编号，主从要一直
+          priority 100            # 优先级，数值越大，获取处理请求的优先级越高
+          advert_int 1            # 检查间隔，默认为1s(vrrp组播周期秒数)
+          #授权访问
+          authentication {
+              auth_type PASS #设置验证类型和密码，MASTER和BACKUP必须使用相同的密码才能正常通信
+              auth_pass 1111
+          }
+          track_script {
+              chk_http_port            #（调用检测脚本）
+          }
+          virtual_ipaddress {
+              192.168.16.130            # 定义虚拟ip(VIP)，可多设，每行一个
+          }
+      }
+      ```
+
+      `virtual_ipaddress` 里面可以配置vip,在线上通过vip来访问服务。
+
+      `interface``需要根据服务器网卡进行设置通常查看方式``ip addr`
+
+      `authentication`配置授权访问后备机也需要相同配置
+
+   2. **修改备机（192.168.16.129）keepalived配置文件**
+
+      ```cmd
+      #检测脚本
+      vrrp_script chk_http_port {
+          script "/usr/local/src/check_nginx_pid.sh" #心跳执行的脚本，检测nginx是否启动
+          interval 2                          #（检测脚本执行的间隔）
+          weight 2                            #权重
+      }
+      #vrrp 实例定义部分
+      vrrp_instance VI_1 {
+          state BACKUP                        # 指定keepalived的角色，MASTER为主，BACKUP为备
+          interface ens33                      # 当前进行vrrp通讯的网络接口卡(当前centos的网卡) 用ifconfig查看你具体的网卡
+          virtual_router_id 66                # 虚拟路由编号，主从要一直
+          priority 99                         # 优先级，数值越大，获取处理请求的优先级越高
+          advert_int 1                        # 检查间隔，默认为1s(vrrp组播周期秒数)
+          #授权访问
+          authentication {
+              auth_type PASS #设置验证类型和密码，MASTER和BACKUP必须使用相同的密码才能正常通信
+              auth_pass 1111
+          }
+          track_script {
+              chk_http_port                   #（调用检测脚本）
+          }
+          virtual_ipaddress {
+              192.168.16.130                   # 定义虚拟ip(VIP)，可多设，每行一个
+          }
+      }
+      ```
+
+   3. **检测脚本：**
+
+      ```cmd
+      #!/bin/bash
+      #检测nginx是否启动了
+      A=`ps -C nginx --no-header |wc -l`        
+      if [ $A -eq 0 ];then    #如果nginx没有启动就启动nginx                        
+            systemctl start nginx                #重启nginx
+            if [ `ps -C nginx --no-header |wc -l` -eq 0 ];then    #nginx重启失败，则停掉keepalived服务，进行VIP转移
+                    killall keepalived                    
+            fi
+      fi
+      ```
+

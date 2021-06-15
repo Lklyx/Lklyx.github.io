@@ -21,7 +21,7 @@ tags:
 
 安装**lrzsz**，
 
-```js
+```cmd
 yum -y install lrzsz
 ```
 
@@ -76,7 +76,7 @@ yum -y install zlib zlib-devel openssl openssl-devel pcre pcre-devel （安装�
 
 敲yum命令时，出现以下错误：
 
-```js
+```cmd
 [root@Linux1 home]# yum -y install gcc zlib zlib-devel pcre-devel openssl openssl-devel
 Loaded plugins: fastestmirror, refresh-packagekit, security
 Loading mirror speeds from cached hostfile
@@ -89,12 +89,49 @@ Error: Cannot find a valid baseurl for repo: base
 首先，这里说一下具体的原因：
 
 > 1. CentOS 6已经随着2020年11月的结束进入了EOL（Reaches End of Life），不过有一些老设备依然需要支持，CentOS官方也给这些还不想把CentOS6扔进垃圾堆的用户保留了最后一个版本的镜像，只是这个镜像不会再有更新了
->
 > 2. 官方便在12月2日正式将CentOS 6相关的软件源移出了官方源，随之而来逐级镜像也会陆续将其删除。
->
 > 3. 不过有一些老设备依然需要维持在当前系统，CentOS官方也给这些还不想把CentOS6扔进垃圾堆的用户保留了各个版本软件源的镜像，只是这个软件源不会再有更新了。
->
->    `简单的说就是`：Centos 6已经不被官方支持，所以想要使用就要用其他代理比如阿里云Vault镜像。
->
->    所以我下面使用的是阿里云的镜像。
 
+`简单的说就是`：Centos 6已经不被官方支持，所以想要使用就要用其他代理比如阿里云Vault镜像。我下面使用的是阿里云的镜像。第三条命令可以看出来。
+
+解决方案：
+
+> ```cmd
+>sed -i "s|enabled=1|enabled=0|g" /etc/yum/pluginconf.d/fastestmirror.conf
+> ```
+> 
+> ```cmd
+>mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
+> ```
+> 
+> ```cmd
+>curl -o /etc/yum.repos.d/CentOS-Base.repo https://www.xmpan.com/Centos-6-Vault-Aliyun.repo
+> ```
+> 
+> ```cmd
+>yum clean all
+> ```
+> 
+> ```cmd
+>yum makecache
+> ```
+> 
+> 以上五条命令，按照顺序依次敲进去就可以了 。
+
+# Another app is currently holding the yum lock; waiting for it to exit...
+
+使用yum时出现这样的错误、且一直循环报错。
+
+```cmd
+vim /etc/yum.repos.d/CentOS-Base.repo # 进去修改enabled = 1
+```
+
+```cmd
+rm -f /var/run/yum.pid #永久禁止该错误
+```
+
+然后就可以重新执行yum了。
+
+# -bash: systemctl: command not found
+
+开启防火墙，关闭防火墙。在虚拟机中打开防火墙。如果是服务器，记得在安全组中配置需要访问的端口。
