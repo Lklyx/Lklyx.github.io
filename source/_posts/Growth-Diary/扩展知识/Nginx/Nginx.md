@@ -367,7 +367,7 @@ location / {
 
 
 
-# Nginx配置实例——动静分离。
+# Nginx配置实例——动静分离。（测试失败！）
 
 1. 什么是动静分离；
 
@@ -439,7 +439,7 @@ location / {
       ```cmd
       #检测脚本
       vrrp_script chk_http_port {
-          script "/usr/local/src/check_nginx_pid.sh" #心跳执行的脚本，检测nginx是否启动
+          script "/usr/local/src/nginx_check.sh" #心跳执行的脚本，检测nginx是否启动
           interval 2                          #（检测脚本执行的间隔，单位是秒）
           weight 2                            #权重
       }
@@ -475,7 +475,7 @@ location / {
       ```cmd
       #检测脚本
       vrrp_script chk_http_port {
-          script "/usr/local/src/check_nginx_pid.sh" #心跳执行的脚本，检测nginx是否启动
+          script "/usr/local/src/nginx_check.sh" #心跳执行的脚本，检测nginx是否启动
           interval 2                          #（检测脚本执行的间隔）
           weight 2                            #权重
       }
@@ -513,4 +513,12 @@ location / {
             fi
       fi
       ```
+   
+5. 分别启动两台服务器的nginx和keepalived。
 
+   ```cmd
+   service keepalived restart	#启动keepalived 虚拟机
+   systemctl start keepalived.service #启动keepalived 服务器
+   ```
+
+   
