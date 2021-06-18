@@ -133,6 +133,8 @@ docker --help # 万能命令
 
 ## 镜像命令
 
+**docker images** 查看所有本地的主机上的镜像。
+
 ```shell
 [root@yanan /]# docker images
 REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
@@ -215,10 +217,10 @@ docker pull centos
 ```shell
 docker run [可选参数] image
 # 参数说明
---name="Name"		容器名字 tomcat1，tomcat2，用来区分容器
--d				后台方式运行
--it				使用交互方式运行
--P			大写P	指定容器的端口 -p 8080:8080。有以下四种方式
+--name="Name"		 容器名字 tomcat1，tomcat2，用来区分容器
+-d					后台方式运行
+-it					使用交互方式运行
+-P					大写P	指定容器的端口 -p 8080:8080。有以下四种方式
 	-P ip:主机端口:容器端口
 	-P 主机端口:容器端口 （常用）
 	-P 容器端口
@@ -227,12 +229,13 @@ docker run [可选参数] image
 
 # 测试 启动并进入容器
 [root@yanan /]# docker run -it centos /bin/bash
-# 解释：启动docker run ，使用it交互方式运行，运行centos。linux中，控制台一般是在/bin目录下面，bin目录下面，使用bash命令。
+# 解释：启动docker run ，使用it交互方式运行，运行centos。linux中，控制台一般是在/bin目录下面，bin目录下面，使用bash命令运行。
 [root@9456c976569b /]# ls
 bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
 
 # 退出容器命令
 exit
+Ctrl p Q
 ```
 
 **列出所有运行中的容器**
@@ -240,7 +243,7 @@ exit
 ```shell
 # docker ps	命令
 -a # 列出当前正在运行的容器 + 带出历史运行记录。
--n=？ # 显示最近创建的容器。登录？？？等于一，就是显示一条。
+-n=？ # 显示最近创建的容器。？等于一，就是显示一条。
 -q # 只显示容器的编号
 ```
 
@@ -266,5 +269,316 @@ docker start 容器id	# 启动容器
 docker restart 容器id	# 重启容器
 docker stop 容器id	# 停止当前正在运行的容器
 docker kill 容器id	# 停止当前正在运行的容器
+```
+
+## 常用的其他命令
+
+**后台启动容器**
+
+```shell
+# 命令 docker run -d + 镜像名
+docker run -d centos
+# 问题docker ps，发现了centos停止了。
+# 常见的坑，docker容器使用后台运行，就必须要有一个前台进程，docker发现没有应用，就自动停止
+# nginx，容器启动后，发现自己没有提供服务，就立刻停止，就是没有程序了。
+```
+
+**查看日志**
+
+```shell
+docker logs -f -t --tail 10	+ 容器id，没有日志
+# 自己编写一段shell脚本
+[root@yanan ~]# docker run -d centos /bin/sh -c "while true;do echo yanan;sleep 1;done"
+
+[root@yanan ~]# docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED             STATUS             PORTS     NAMES
+632215a985f8   centos    "/bin/sh -c 'while t…"   2 minutes ago       Up 2 minutes                 fervent_sutherland
+9625ad394ea0   centos    "/bin/bash"              About an hour ago   Up About an hour             silly_perlman
+# 这里的id为632215a985f8这个的就是刚才上面我们自己编写的shell脚本。
+
+# 显示日志
+-tf
+--tail number  # number 是要显示的条数。
+[root@yanan ~]# docker logs -tf --tail 10 632215a985f8 
+
+```
+
+**查看容器中进程信息**
+
+```shell
+# 命令 docker top + 容器id
+[root@yanan ~]# docker top 632215a985f8
+UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD
+root                130102              130082              0                   10:46               ?                   00:00:00            /bin/sh -c while true;do echo yanan;sleep 1;done
+root                130980              130102              0                   10:56               ?                   00:00:00            /usr/bin/coreutils --coreutils-prog-shebang=sleep /usr/bin/sleep 1
+
+```
+
+**查看镜像的元数据**
+
+```shell
+# 命令
+docker inspect + 容器id
+# 例子如下：
+[root@yanan ~]# docker inspect 632215a985f8
+[
+    {
+        "Id": "632215a985f86604fb0140c1cccfb91d218abaa0b97e143cb70868148beab7fd",
+        "Created": "2021-06-18T02:46:48.189412678Z",
+        "Path": "/bin/sh",
+        "Args": [
+            "-c",
+            "while true;do echo yanan;sleep 1;done"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 130102,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2021-06-18T02:46:48.519148447Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+        },
+        "Image": "sha256:300e315adb2f96afe5f0b2780b87f28ae95231fe3bdd1e16b9ba606307728f55",
+        "ResolvConfPath": "/var/lib/docker/containers/632215a985f86604fb0140c1cccfb91d218abaa0b97e143cb70868148beab7fd/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/632215a985f86604fb0140c1cccfb91d218abaa0b97e143cb70868148beab7fd/hostname",
+        "HostsPath": "/var/lib/docker/containers/632215a985f86604fb0140c1cccfb91d218abaa0b97e143cb70868148beab7fd/hosts",
+        "LogPath": "/var/lib/docker/containers/632215a985f86604fb0140c1cccfb91d218abaa0b97e143cb70868148beab7fd/632215a985f86604fb0140c1cccfb91d218abaa0b97e143cb70868148beab7fd-json.log",
+        "Name": "/fervent_sutherland",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": null,
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "default",
+            "PortBindings": {},
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "host",
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": null,
+            "BlkioDeviceWriteBps": null,
+            "BlkioDeviceReadIOps": null,
+            "BlkioDeviceWriteIOps": null,
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "KernelMemory": 0,
+            "KernelMemoryTCP": 0,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": false,
+            "PidsLimit": null,
+            "Ulimits": null,
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "MaskedPaths": [
+                "/proc/asound",
+                "/proc/acpi",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/sys/firmware"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/de124c2876dc50d329be43cecdffa6bb6687e99e5fa8623c0ea2c618387c821a-init/diff:/var/lib/docker/overlay2/99d95899194b53d6ee714912494fc15576f0712ab2077192fe7061696325fe9d/diff",
+                "MergedDir": "/var/lib/docker/overlay2/de124c2876dc50d329be43cecdffa6bb6687e99e5fa8623c0ea2c618387c821a/merged",
+                "UpperDir": "/var/lib/docker/overlay2/de124c2876dc50d329be43cecdffa6bb6687e99e5fa8623c0ea2c618387c821a/diff",
+                "WorkDir": "/var/lib/docker/overlay2/de124c2876dc50d329be43cecdffa6bb6687e99e5fa8623c0ea2c618387c821a/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [],
+        "Config": {
+            "Hostname": "632215a985f8",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            ],
+            "Cmd": [
+                "/bin/sh",
+                "-c",
+                "while true;do echo yanan;sleep 1;done"
+            ],
+            "Image": "centos",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {
+                "org.label-schema.build-date": "20201204",
+                "org.label-schema.license": "GPLv2",
+                "org.label-schema.name": "CentOS Base Image",
+                "org.label-schema.schema-version": "1.0",
+                "org.label-schema.vendor": "CentOS"
+            }
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "b74dbfc943b00745c34506e0c5e60da5115ef4cf1939be0f00a436044db9d0dc",
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "Ports": {},
+            "SandboxKey": "/var/run/docker/netns/b74dbfc943b0",
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "5a814cb0d1f0e15c7cdd6b4c12d0ad0694e6c024b8b21af3ed8efecdd51bd312",
+            "Gateway": "172.17.0.1",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "172.17.0.3",
+            "IPPrefixLen": 16,
+            "IPv6Gateway": "",
+            "MacAddress": "02:42:ac:11:00:03",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "NetworkID": "cbf06a0493948171fe26ac9eb31e2584bac17d1aa55715470a3f478591125a77",
+                    "EndpointID": "5a814cb0d1f0e15c7cdd6b4c12d0ad0694e6c024b8b21af3ed8efecdd51bd312",
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.3",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "MacAddress": "02:42:ac:11:00:03",
+                    "DriverOpts": null
+                }
+            }
+        }
+    }
+]
+
+```
+
+**进入当前正在运行的容器**
+
+```shell
+# 我们通常容器都是使用后台方式运行的，需要进入容器，修改一些配置
+# 命令
+docker exec -it + 容器id bashShell
+# 测试例子：
+[root@yanan ~]# docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED             STATUS             PORTS     NAMES
+632215a985f8   centos    "/bin/sh -c 'while t…"   25 minutes ago      Up 25 minutes                fervent_sutherland
+9625ad394ea0   centos    "/bin/bash"              About an hour ago   Up About an hour             silly_perlman
+[root@yanan ~]# docker exec -it 9625ad394ea0 /bin/bash
+[root@9625ad394ea0 /]# ps -ef
+UID          PID    PPID  C STIME TTY          TIME CMD
+root           1       0  0 01:43 pts/0    00:00:00 /bin/bash
+root          16       0  0 03:12 pts/1    00:00:00 /bin/bash
+root          30      16  0 03:13 pts/1    00:00:00 ps -ef
+
+# 方式二
+docker attach + 容器id
+
+# docker exec		# 进入容器后开启一个新的终端，可以在里面操作（刚创建的容器）
+# docker attach		# 进入容器正在执行的终端，不会启动行的进程（正在运行的容器）
+
+```
+
+**从容器内拷贝文件到主机上**
+
+```shell
+docker cp + 容器id：容器内路径	目的的主机路径
+# 查看当前主机的进程
+[root@yanan home]# docker ps
+CONTAINER ID   IMAGE     COMMAND       CREATED         STATUS         PORTS     NAMES
+dd3b2ccc9c13   centos    "/bin/bash"   3 minutes ago   Up 3 minutes             xenodochial_taussig
+
+# 进入docker容器内部在容器内建一个文件
+[root@yanan home]# docker attach dd3b2ccc9c13
+[root@dd3b2ccc9c13 home]# touch test.java
+[root@dd3b2ccc9c13 home]# ls  
+test.java
+[root@dd3b2ccc9c13 home]# exit
+exit
+# 将文件拷贝到我们的主机上。
+[root@yanan home]# docker cp dd3b2ccc9c13:/home/test.java /home
+# docker cp 容器id: + 需要拷贝的文件路径 + 需要拷贝的主机目录（这里是/home）。
+[root@yanan home]# ls
+test.java  yanan.java
+
+#拷贝是一个手动过程，未来我们使用 -v 卷的技术，可以实现，自动同步，主机上的/home  和  容器上的/home 、自动备份。
 ```
 
