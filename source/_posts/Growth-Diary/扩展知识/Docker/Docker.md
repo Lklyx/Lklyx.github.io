@@ -7,6 +7,106 @@ tags:
 - Docker
 ---
 
+# 常用命令
+
+> 1. Docker容器信息
+>
+>    ```shell
+>    ##查看docker容器版本
+>    docker version
+>    ##查看docker容器信息
+>    docker info
+>    ##查看docker容器帮助
+>    docker --help
+>    ```
+>
+> 2. 镜像操作
+>
+>    ```shell
+>    # 查看本地所有镜像
+>    docker images 
+>    
+>    # 启动并进入镜像
+>     docker run -it + 镜像名字：版本号 + /bin/bash
+>    # 如果只加名字，就默认下载最新版本的启动
+>    
+>    # 第一次启动镜像
+>     docker run -d -p 3310:3306 -v /home/mysql/conf:/etc/mysql/conf.d -v /home/mysql/data:/var/lib/mysql
+>     -d # 后台运行
+>     -p # 3310:3306 暴露端口
+>     -v # 挂载数据，自动备份、路径
+>     /home/mysql/conf:/etc/mysql/conf.d  这是映射配置文件的。
+>     /home/mysql/data:/var/lib/mysql	这是映射配置数据文件的。
+>     
+>    # 显示镜像ID
+>    docker images -a
+>    docker images -aq
+>    
+>    # 搜索仓库MySQL镜像
+>    docker search mysql
+>    
+>    # 下载Redis官方最新镜像，相当于：docker pull redis:latest
+>    docker pull redis
+>    
+>    # 下载仓库所有Redis镜像
+>    docker pull -a redis
+>    
+>    # 下载私人仓库镜像
+>    docker pull bitnami/redis
+>    
+>    # 单个镜像删除，相当于：docker rmi redis:latest
+>    docker rmi redis
+>    
+>    # 强制删除(针对基于镜像有运行的容器进程)
+>    docker rmi -f redis
+>    
+>    # 删除本地全部镜像
+>    docker rmi -f $(docker images -q)
+>
+> 3. 容器的操作
+>
+>    ```shell
+>       # 查看正在运行的容器
+>       docker ps
+>    
+>       # 显示所有的容器，包括未运行的
+>       docker ps -a
+>    
+>       # 启动容器
+>       docker start 容器id	
+>    
+>       # 进入正在运行的命令行
+>       docker exec -it + 容器id /bin/bash
+>       docker attach 容器id	
+>    
+>       # 运行并进入容器。  使用exit退出，或者ctrl+p+q，退出。
+>       docker run -it + 容器ID + /bin/bash
+>    
+>       # 强制删除已经启动的容器
+>       docker rm -f + ID
+>    
+>       # 强制删除所有已经启动的容器。
+>       docker rm -f $(docker ps -aq)	
+>       
+>       # 列出容器中的进程
+>       docker top + ID
+>    
+>       # 查看容日的日志
+>       docker logs -f -t --tail=5 + ID
+>       # -f 跟踪日志输出
+>       # -t 显示时间戳
+>       # --tail=N 列出最新的 N 条内容。
+>    
+>       # 查看容器tomcat从2021年04月21日后的最新3条日志。
+>       docker logs --since="2021-04-21" --tail=3 5afc660a7c3d
+>    
+>       docker restart 容器id	# 重启容器
+>       docker stop 容器id	# 停止当前正在运行的容器
+>       docker kill 容器id	# 杀死当前正在运行的容器
+>    ```
+>
+> 
+
 # Docker 学习路径
 
 学习视频地址[Docker](https://www.bilibili.com/video/BV1og4y1q7M4?p=1)
@@ -215,7 +315,7 @@ docker pull centos
 **新建容器并启动**
 
 ```shell
-docker run [可选参数] image
+docker run [可选参数] images
 # 参数说明
 --name="Name"		 容器名字 tomcat1，tomcat2，用来区分容器
 -d					后台方式运行
@@ -536,7 +636,7 @@ docker inspect + 容器id
 ```shell
 # 我们通常容器都是使用后台方式运行的，需要进入容器，修改一些配置
 # 命令
-docker exec -it + 容器id bashShell
+docker exec -it + 容器id /bin/bash
 # 测试例子：
 [root@yanan ~]# docker ps
 CONTAINER ID   IMAGE     COMMAND                  CREATED             STATUS             PORTS     NAMES
@@ -581,4 +681,287 @@ test.java  yanan.java
 
 #拷贝是一个手动过程，未来我们使用 -v 卷的技术，可以实现，自动同步，主机上的/home  和  容器上的/home 、自动备份。
 ```
+
+## 练习
+
+> Docker 安装 Nginx
+
+```shell
+# 搜索镜像 search 建议去docker官网搜索，可以看到帮助文档
+# 下载镜像	pull
+# 运行测试 
+docker pull nginx
+docker run -d --name nginx01 -p 3344:80 nginx
+# 注释：使用docker运行下载的docker --name，是给镜像命名，默认的话， 不用写。这里给他重命为nginx01。-p，暴露一个端口号，暴露一个3344的端口号。后面加上nginx。启动nginx
+# -d 后台运行
+# --name	给容器命令
+# -p	暴露端口，宿主机，容器内部端口。
+[root@yanan /]# docker images
+REPOSITORY   TAG       IMAGE ID       CREATED        SIZE
+nginx        latest    d1a364dc548d   3 weeks ago    133MB	# 刚拉取下载的nginx
+mysql        latest    c0cdc95609f1   5 weeks ago    556MB
+centos       latest    300e315adb2f   6 months ago   209MB
+
+# 进入容器
+[root@yanan ~]# docker exec -it nginx01 /bin/bash
+root@10e221d799fd:/# whereis nginx
+nginx: /usr/sbin/nginx /usr/lib/nginx /etc/nginx /usr/share/nginx
+root@10e221d799fd:/# cd /etc/nginx/
+root@10e221d799fd:/etc/nginx# ls
+conf.d	fastcgi_params	mime.types  modules  nginx.conf  scgi_params  uwsgi_params
+# 这里就会有正常的nginx的配置.conf配置文件。
+```
+
+![image-20210621132859097](E:\Lklyx.github.io\source\_posts\Growth-Diary\扩展知识\Docker\image\2.png)
+
+思考问题：我们每次改动nginx配置文件，都需要进入容器内部？十分麻烦，我要是可以在容器外部提供一个映射路径，达到在容器修改文件名，容器内部就可以自动修改？-v 数据卷！
+
+> 作业:使用docker装一个tomcat。
+
+```shell
+# 官方使用
+docker run -it --rm tomcat:9.0
+
+# 我们之前的启动都是后台，停止了容器之后，容器还可以查到。docker run -it --rm 。这个是用来测试，用完就删除。
+
+# 下载启动
+docker pull tomcat
+
+# 启动运行
+docker run -d -p 3355:8080 --name tomcat01 tomcat
+# 使用docker运行tomcat，在后台环境下，暴露一个3355:8080端口 运行，重命名为tomcat01
+
+#进入容器 docer exec -it +容器名 /bin/bash
+# 问题：测试访问没有问题，但是显示的是404页面。是因为docker全部简化了。这样的话webapps里面没有东西。
+# 解决：我们复制webapps.dist里面的内容到webapps中，就可以正常显示tomcat页面了。
+ cp -r webapps.dist/* webapps # 赋值 webapps.dist/*之下的所有目录，到webapps中。
+```
+
+思考问题：我们以后部署项目，如果每次都要进入容器是不是十分麻烦？我要是可以在容器外部提供一个映射路径，webapps，我们在外部放置项目，就自动同步到内部就好了。
+
+> 作业：部署es + kibana
+
+```shell
+# es 暴露的端口很多！
+# es 十分的耗内存
+# es的数据一般需要防止到安全目录！挂载。
+
+# 下载启动elasticsearch
+# 加上es的配置。
+docker run -d --name elasticsearch02 -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e ES_JAVA_OPTS="-Xms64m -Xmx512m" elasticsearch:7.6.2
+# -e ES_JAVA_OPTS="-Xms64m -Xmx512m" -e 限制一些基本运行的函数 ES_java的环境，最小64m。最大运行给他512m
+
+# 测试一下es是否成功
+[root@yanan ~]# curl localhost:9200
+{
+  "name" : "901fb49e18c1",
+  "cluster_name" : "docker-cluster",
+  "cluster_uuid" : "lP5Q8aoyS2COdm9WoEbqrg",
+  "version" : {
+    "number" : "7.6.2",
+    "build_flavor" : "default",
+    "build_type" : "docker",
+    "build_hash" : "ef48eb35cf30adf4db14086e8aabd07ef6fb113f",
+    "build_date" : "2020-03-26T06:34:37.794943Z",
+    "build_snapshot" : false,
+    "lucene_version" : "8.4.0",
+    "minimum_wire_compatibility_version" : "6.8.0",
+    "minimum_index_compatibility_version" : "6.0.0-beta1"
+  },
+  "tagline" : "You Know, for Search"
+}
+```
+
+> 查看cpu使用率
+>
+> ```shell
+> docker stats
+> ```
+
+## 可视化
+
+- portainer（先用这个）
+
+  ```shell
+  docker run -d -p 8088:9000 \
+  --restart=always -v/var/run/docker.sock:/var/run/docker.sock --privileged=true portainer/portainer
+  ```
+
+- Eancher（CI、CD再用）
+
+**什么是Portainer？**
+
+Docker 图形化界面管理工具！提供一个后台面板供我们操作！
+
+```shell
+docker run -d -p 8088:9000 \
+--restart=always -v/var/run/docker.sock:/var/run/docker.sock --privileged=true portainer/portainer
+# 这里需要去开通安全组的外网端口8088
+```
+
+访问测试。自己的ip加端口8088
+
+通过他来访问了：
+
+![image-20210623100939079](E:\Lklyx.github.io\source\_posts\Growth-Diary\扩展知识\Docker\image\3.png)
+
+设置密码进入，我设置的为`admin123`
+
+可视化面板我们平时不怎么使用，自己测试玩玩就可以了。
+
+# Docker镜像讲解
+
+## 镜像是什么？
+
+18集、
+
+## Docker镜像加载原理
+
+19集、
+
+## 分层理解
+
+19集、
+
+## commit镜像
+
+docker commit 提交容器成为一个新的副本
+
+```shell
+# 命令和git原理类似
+docker commit -m="提交的描述信息" -a="作者" 容器ID 目标镜像名:[Tag]
+```
+
+实战测试：
+
+```shell
+# 1、启动一个默认的tomat
+# 2、发现这个默认的tomcat 是没有webapps应用，镜像的原因，官方的镜像默认 webapps下面是没有文件的！我们只好从webapps.dist文件中复制过去。这样就可以正常使用了。
+# 3、我自己拷贝进去了基本的文件
+# 4、将我们操作过的容器通过commit提交为一个镜像！我们以后就使用我们修改过的镜像即可，这就是我们自己的一个修改的镜像
+```
+
+![image-20210623132839144](E:\Lklyx.github.io\source\_posts\Growth-Diary\扩展知识\Docker\image\4.png)
+
+到了这里，才算是docker入门！
+
+# 容器数据卷
+
+## 什么是容器数据卷
+
+![image-20210623133945173](E:\Lklyx.github.io\source\_posts\Growth-Diary\扩展知识\Docker\image\5.png)
+
+总结一句话：容器的持久和同步操作！容器间也是可以数据共享的！
+
+## 使用数据卷
+
+> 方式一：直接使用命令来挂载 -v
+
+```shell
+docker run -it -v
+# -v 主机目录：容器内目录，做一个映射。
+
+# 测试：
+docker run -it -v /home/ceshi:/home centos /bin/bash
+-it # 在里面去执行
+-v # 挂载
+/home/ceshi:/home # /home/ceshi是虚拟机上的测试目录。：跟容器里面的/home对应映射。
+centos # 启动镜像
+
+# 启动起来时候我们可以通过docker inspect + 容器ID  查看具体信息。
+```
+
+![](E:\Lklyx.github.io\source\_posts\Growth-Diary\扩展知识\Docker\image\6.png)
+
+测试文件的同步
+
+![image-20210623152819024](E:\Lklyx.github.io\source\_posts\Growth-Diary\扩展知识\Docker\image\7.png)
+
+再来测试：
+
+1. 停止容器，不是删除，是停止，exit。退出，停止。
+2. 宿主机上修改文件
+3. 启动容器
+4. 容器内的数据依旧同步的
+
+好处：我们以后修改只需要在本地修改即可，容器内会自动同步。
+
+## 实战：安装MySQL
+
+思考：MySQL的数据持久的问题
+
+```shell
+# 获取镜像
+docker pull mysql:5.7
+# 运行容器，需要做数据挂载! 
+# 安装启动mysql，是需要配置密码的，这是需要注意的点。官网的是这样的。
+docker run --name some-mysql -v /my/custom:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
+
+# 启动我们的mysql
+docker run -d -p 3310:3306 -v /home/mysql/conf:/etc/mysql/conf.d -v /home/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 --name mysql01 mysql:5.7
+-d 后台运行
+-p 3310:3306	端口映射
+-v /home/mysql/conf:/etc/mysql/conf.d	卷挂载，映射配置挂载
+-v /home/mysql/data:/var/lib/mysql	卷挂载，映射数据挂载
+-e MYSQL_ROOT_PASSWORD=123456	环境配置，配置mysql的密码。
+--name mysql01 	容器的名字。
+mysql:5.7 # 需要启动的名字加版本号
+
+# 启动成功以后，我们在本地使用navcat来测试一下， 记得在服务器配置3310端口
+# navcat -连接到服务的3310 --- 3310和容器内的 3306映射，这个是我们就可以连接上了！
+# 在本地创建一个数据库，查看我们的映射是否ok！
+
+```
+
+## 具名挂载和匿名挂载
+
+```shell
+# 匿名挂载
+-v 容器内路径！
+docker run -d -P --name nginx01 -v /ect/nginx nginx
+
+# 查看所有的volume
+[root@yanan data]# docker volume ls
+DRIVER    VOLUME NAME
+local     0b8665fdb3d8541564c963d0d8ac06f3fc2443a9de1e2e94a5182ff886f6b22f
+local     3d9a65b7398b9c809a02eff681a9ede7065225bf918c376ac91094ac92664f57
+local     6e24a2ff87e1f4840d33e7427ee6b59b88c45d314e973f290146e43f625a7934
+local     7c6011f63bb4cc96a3b725d17c8b363962748f703a7c4ce8827b9717dea9efda
+local     8ca7d1ef73b3eeee67f8af2da4b9b6c43f989bda4837c8bfdf38fb55c8a0ab2f
+local     9eee80503bf966349d4fefaa4b449942a81c252449fd0ad1471a30e43c20f454
+local     58cf2baf4712c05dafc2b0a48aa8e36e12bc1e7e38fe41c9ea9d8ef16f478a11
+
+# 具名挂载
+# 通过-v 卷名：容器内路径
+# 查看一下这个卷
+local     bda56e90dc819b3bc9ba87e4c8ada55c05ba83c646e5f440b67adf32ff6c3d1c
+local     dca55220d001343ea5ff1696176b9c18ebe5526c88f98cbbec21dbaed9376086
+local     fe707bc573dfcb8cf1bc19553de1f09725c72ed11f1901038381f72503f660dd
+local     juming-nginx
+[root@yanan data]# docker volume inspect juming-nginx
+[
+    {
+        "CreatedAt": "2021-06-24T13:16:54+08:00",
+        "Driver": "local",
+        "Labels": null,
+        "Mountpoint": "/var/lib/docker/volumes/juming-nginx/_data",
+        "Name": "juming-nginx",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+
+```
+
+所有的docker容器内的卷，没有指定目录的情况下，都是在`/var/lib/docker/volumes/xxx/data`
+
+我们通过具名挂载可以方便的找到我们的一个卷，大多数情况都在使用的`具名挂载`
+
+## 结束于23集8分34秒
+
+
+
+
+
+
 
