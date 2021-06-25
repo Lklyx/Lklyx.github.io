@@ -68,38 +68,38 @@ tags:
 >    ```shell
 >       # 查看正在运行的容器
 >       docker ps
->    
+>       
 >       # 显示所有的容器，包括未运行的
 >       docker ps -a
->    
+>       
 >       # 启动容器
 >       docker start 容器id	
->    
+>       
 >       # 进入正在运行的命令行
 >       docker exec -it + 容器id /bin/bash
 >       docker attach 容器id	
->    
+>       
 >       # 运行并进入容器。  使用exit退出，或者ctrl+p+q，退出。
 >       docker run -it + 容器ID + /bin/bash
->    
+>       
 >       # 强制删除已经启动的容器
 >       docker rm -f + ID
->    
+>       
 >       # 强制删除所有已经启动的容器。
 >       docker rm -f $(docker ps -aq)	
->       
+>          
 >       # 列出容器中的进程
 >       docker top + ID
->    
+>       
 >       # 查看容日的日志
 >       docker logs -f -t --tail=5 + ID
 >       # -f 跟踪日志输出
 >       # -t 显示时间戳
 >       # --tail=N 列出最新的 N 条内容。
->    
+>       
 >       # 查看容器tomcat从2021年04月21日后的最新3条日志。
 >       docker logs --since="2021-04-21" --tail=3 5afc660a7c3d
->    
+>       
 >       docker restart 容器id	# 重启容器
 >       docker stop 容器id	# 停止当前正在运行的容器
 >       docker kill 容器id	# 杀死当前正在运行的容器
@@ -957,11 +957,43 @@ local     juming-nginx
 
 我们通过具名挂载可以方便的找到我们的一个卷，大多数情况都在使用的`具名挂载`
 
-## 结束于23集8分34秒
+```shell
+# 如何确定是具名挂载还是匿名挂载，还是指定路径挂载！
+-v 容器内路径	# 匿名挂载
+-v 卷名：容器内路径		# 具名挂载
+-v /宿主机路径:容器内路径		# 指定路径挂载
+```
 
+拓展：
 
+```shell
+# 通过-v 容器内路径：ro rw 改变读写权限。
+ro readonly # 只读
+rw readwrite # 可读可写
+# ro只要看到ro就说明这个路径只能通过宿主机来操作，容器内部是无法操作!
+```
 
+## 初识Dockerfile
 
+Dockerfile就是用来构建docker镜像的构建文件！命令脚本！体验一下！
 
+通过这个脚本可以生成镜像，镜像是一层一层的，脚本是一个个的命令，每个命令都是一层
 
+```shell
+# 创建一个dockerfile文件，名字可以随机 建议dockerfile
+# 文件中的内容 指令（大写）参数
+FROM centos
+VOLUME ["volume01","volume02"]
+CMD echo "---end----"
+CMD /bin/bash
+# 这里的每个命令，就是镜像的一层！
+```
+
+> 方式二：
+
+![image-20210625145050645](E:\Lklyx.github.io\source\_posts\Growth-Diary\扩展知识\Docker\image\8.png)
+
+```shell
+# 启动自己写的容器
+```
 

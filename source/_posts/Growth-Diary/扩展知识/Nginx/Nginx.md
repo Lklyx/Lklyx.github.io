@@ -142,13 +142,13 @@ java -version
 
 `使用Nginx操作命令前提条件：`必须进入nginx目录中。
 
-```java
+```shell
 /usr/local/nginx/sbin
 ```
 
 1. **nginx的版本号**
 
-   ```js
+   ```shell
    ./nginx -v
    ```
 
@@ -220,7 +220,7 @@ java -version
 
    在location中添加一个转发路径：
 
-   ```java
+   ```shell
    proxy_pass http:127.0.0.1:8080
    ```
 
@@ -239,14 +239,14 @@ java -version
 
    在目录：**usr/src**下创建两个文件夹，分别为tomcat8080、tomcat8081。
 
-   ```cmd
+   ```shell
    mkdir tomcat8080
    mkdir tomcat8081
    ```
 
    这是可以把之前的tomcat进程关闭。
 
-   ```cmd
+   ```shell
    # 查看当前的tomcat进程
    ps -ef | grep tomcat
    # 关闭进程
@@ -255,7 +255,7 @@ java -version
 
    在两个文件里面分别放入tomcat的安装包、并解压、启动（**/usr/src/tomcat8081/apache-tomcat-7.0.70/bin**）之下，执行命令
 
-   ```cmd
+   ```shell
    ./startup.sh 
    ```
 
@@ -305,7 +305,7 @@ java -version
 
 在**http**块中，加一个==upstreat myserver==后面的**myserver**是名字，可以自定义。在新加块中加上我们的服务器列表。
 
-```cmd
+```shell
 upstreat myserver{
 	server 106.15.176.231:8080
 	server 106.15.176.231:8081
@@ -330,7 +330,7 @@ location / {
 
    weight代表权重，默认为1.权重越高被分配的客户端越多。指定轮询几率，weight和访问比率成正比，用于后端服务器性能不均的情况。例：
 
-   ```cmd
+   ```shell
    upstreat myserver{
    	server 106.15.176.231:8080  weight=5;
    	server 106.15.176.231:8081  weight=10;
@@ -341,7 +341,7 @@ location / {
 
 3. **ip_hash**
 
-   ```cmd
+   ```shell
    upstreat myserver{
    ip_hash;  #加上这句话就是ip_hash
    	server 106.15.176.231:8080;
@@ -355,7 +355,7 @@ location / {
 
    按后端服务器的响应时间来分配请求，响应时间短的优先分配。
 
-   ```cmd
+   ```shell
    upstreat myserver{
    	server 106.15.176.231:8080;
    	server 106.15.176.231:8081;
@@ -414,13 +414,13 @@ location / {
 
    使用yum命令安装
 
-   ```js
+   ```shell
    yum install keepalived -y
    ```
 
    安装好以后，使用：rpm -q -a keepalived 这个命令查看安装的版本号。
 
-   ```js
+   ```shell
    rpm -q -a keepalived
    ```
 
