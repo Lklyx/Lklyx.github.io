@@ -25,11 +25,11 @@ tags:
 >    ```shell
 >    # 查看本地所有镜像
 >    docker images 
->    
+>
 >    # 启动并进入镜像
 >     docker run -it + 镜像名字：版本号 + /bin/bash
 >    # 如果只加名字，就默认下载最新版本的启动
->    
+>
 >    # 第一次启动镜像
 >     docker run -d -p 3310:3306 -v /home/mysql/conf:/etc/mysql/conf.d -v /home/mysql/data:/var/lib/mysql
 >     -d # 后台运行
@@ -37,73 +37,89 @@ tags:
 >     -v # 挂载数据，自动备份、路径
 >     /home/mysql/conf:/etc/mysql/conf.d  这是映射配置文件的。
 >     /home/mysql/data:/var/lib/mysql	这是映射配置数据文件的。
->     
+>
 >    # 显示镜像ID
 >    docker images -a
 >    docker images -aq
->    
+>
 >    # 搜索仓库MySQL镜像
 >    docker search mysql
->    
+>
 >    # 下载Redis官方最新镜像，相当于：docker pull redis:latest
 >    docker pull redis
->    
+>
 >    # 下载仓库所有Redis镜像
 >    docker pull -a redis
->    
+>
 >    # 下载私人仓库镜像
 >    docker pull bitnami/redis
->    
+>
 >    # 单个镜像删除，相当于：docker rmi redis:latest
 >    docker rmi redis
->    
+>
 >    # 强制删除(针对基于镜像有运行的容器进程)
 >    docker rmi -f redis
->    
+>
 >    # 删除本地全部镜像
 >    docker rmi -f $(docker images -q)
+>    ```
 >
 > 3. 容器的操作
 >
 >    ```shell
 >       # 查看正在运行的容器
 >       docker ps
->       
+>    
 >       # 显示所有的容器，包括未运行的
 >       docker ps -a
->       
+>    
 >       # 启动容器
 >       docker start 容器id	
->       
+>    
 >       # 进入正在运行的命令行
 >       docker exec -it + 容器id /bin/bash
 >       docker attach 容器id	
->       
+>    
 >       # 运行并进入容器。  使用exit退出，或者ctrl+p+q，退出。
 >       docker run -it + 容器ID + /bin/bash
->       
+>    
 >       # 强制删除已经启动的容器
 >       docker rm -f + ID
->       
+>    
 >       # 强制删除所有已经启动的容器。
->       docker rm -f $(docker ps -aq)	
->          
+>       docker rm -f $(docker ps -aq)
+>       
+>       # 删除容器中没有运行的容器
+>       sudo docker rm $(sudo docker ps -aq)
+>    
 >       # 列出容器中的进程
 >       docker top + ID
->       
+>    
 >       # 查看容日的日志
 >       docker logs -f -t --tail=5 + ID
 >       # -f 跟踪日志输出
 >       # -t 显示时间戳
 >       # --tail=N 列出最新的 N 条内容。
->       
+>    
 >       # 查看容器tomcat从2021年04月21日后的最新3条日志。
 >       docker logs --since="2021-04-21" --tail=3 5afc660a7c3d
->       
+>    
 >       docker restart 容器id	# 重启容器
 >       docker stop 容器id	# 停止当前正在运行的容器
 >       docker kill 容器id	# 杀死当前正在运行的容器
 >    ```
+>
+> 4. 其他扩展
+>
+>    ```shell
+>    # 查看容器的日志
+>    docker logs -f -t --tail 容器ID
+>    -f # 跟随最新的日志打印
+>    -t # 是加入的时间戳
+>    --tail # 显示最后多少条
+>    ```
+>
+> 
 >
 > 
 
@@ -220,6 +236,12 @@ rm -rf /var/lib/docker
 Docker是一个Client - Server结构的系统，Docker的守护进程运行在主机上
 
 # Docker的常用命令
+
+## 设置自动启动
+
+```shell
+systemctl enable docker.service
+```
 
 ## 帮助命令
 
@@ -995,5 +1017,23 @@ CMD /bin/bash
 
 ```shell
 # 启动自己写的容器
+
+run start + 容器id
+```
+
+## Dockerfile体系结构
+
+```shell
+FROM	# 基础镜像，当前新镜像是基于那个镜像的
+MAINTAINER	# 镜像维护者的姓名和邮箱地址
+RUN		# 容器构建时需要运行的命令
+EXPOSE 	 # 当前容器对外暴露的端口
+WORKDIR 	# 指定在创建容器后，终端默认登录的工作目录。
+ENV 	 # 用来在构建镜像过程中设置环境变量的
+ADD 	# 将宿主机目录下的文件拷贝进镜像且ADD命令会自动处理URL和解压tar压缩包
+COPY 	# 类似ADD，拷贝文件到镜像目录中。
+VOLUME 	# 容器数据卷，用于数据保存和持久化工作
+CMD 	#  指定一个容器启动时要运行的命令，Dockerfile可以有多个CMD指令，单只有最后一个生效，CMD会被docker run之后的参数替换
+ENTRYPOINT # 指定一个容器启动时要运行的命令，
 ```
 
