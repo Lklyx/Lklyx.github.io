@@ -7,6 +7,23 @@ tags:
 - Linux
 ---
 
+# 常用命令
+
+```shell
+ # 查看所有端口
+netstat -tulnp
+```
+
+# Linux
+
+学习视频地址[LINUX](https://www.bilibili.com/video/BV1pE411C7ho?p=1&spm_id_from=pageDriver)
+
+[尚硅谷教学视频](http: //www.atguigu.com/download.shtml#linux)
+
+安装下载位置，[Linux](https://www.jianshu.com/p/552179808ebf)
+
+安装好以后去安装UBUNTU
+
 # linux文件系统
 
 linux中没有盘符的概念，只有一个根目录。根目录用`/`表示。
@@ -268,7 +285,7 @@ linux中没有盘符的概念，只有一个根目录。根目录用`/`表示。
 
      4. a：代表 **u、g、o**全部修改。
 
-        小结。每个**u、g、o**中。又有**r、w、x**对应的读、写、执行权限
+        **小结:**每个**u、g、o**中。又有**r、w、x**对应的读、写、执行权限
 
      ```js
      chmod u+x // 这个意思是，使用修改权限的命令。u 代表是给当前使用的用户，该user用户，修改，+ 就是加，给它添加一个权限。加一个x权限。x为可以执行的权限。

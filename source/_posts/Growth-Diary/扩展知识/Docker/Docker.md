@@ -81,7 +81,7 @@ tags:
 >       docker attach 容器id	
 >    
 >       # 运行并进入容器。  使用exit退出，或者ctrl+p+q，退出。
->       docker run -it + 容器ID + /bin/bash
+>       docker run -it + 名字 + /bin/bash
 >    
 >       # 强制删除已经启动的容器
 >       docker rm -f + ID
@@ -917,7 +917,7 @@ centos # 启动镜像
 docker pull mysql:5.7
 # 运行容器，需要做数据挂载! 
 # 安装启动mysql，是需要配置密码的，这是需要注意的点。官网的是这样的。
-docker run --name some-mysql -v /my/custom:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
+# docker run --name some-mysql -v /my/custom:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:5.7
 
 # 启动我们的mysql
 docker run -d -p 3310:3306 -v /home/mysql/conf:/etc/mysql/conf.d -v /home/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 --name mysql01 mysql:5.7
@@ -1033,7 +1033,103 @@ ENV 	 # 用来在构建镜像过程中设置环境变量的
 ADD 	# 将宿主机目录下的文件拷贝进镜像且ADD命令会自动处理URL和解压tar压缩包
 COPY 	# 类似ADD，拷贝文件到镜像目录中。
 VOLUME 	# 容器数据卷，用于数据保存和持久化工作
-CMD 	#  指定一个容器启动时要运行的命令，Dockerfile可以有多个CMD指令，单只有最后一个生效，CMD会被docker run之后的参数替换
+CMD 	#  指定一个容器启动时要运行的命令，Dockerfile可以有多个CMD指令，但只有最后一个生效，CMD会被docker run之后的参数替换
 ENTRYPOINT # 指定一个容器启动时要运行的命令，
 ```
+
+# 自定义镜像
+
+## 测试—创建镜像
+
+```shell
+FROM centos
+ENV MYPATH /usr/local # 配置环境变量，就是安装的位置。
+WORKDIR $MYPATH # 工资目录也就是环境变量的目录
+
+RUN yum -y install vim # 安装下载可以使用vim命令
+RUN yum -y install net-tools # 安装下载可以使用ifconfig命令
+
+EXPOSE 80 # 对外暴露的是80端口
+
+CMD echo $MYPATH
+CMD ECHO “sucdess-------------------ok”
+CMD /bin/bash
+```
+
+自定义一个centos镜像，让它可以使用vim、ifconfig、等命令，且让镜像一进来的工作目录为`/usr/local`，对外暴露的端口为80。
+
+创建好以后**wq!**保存，然后打包生成镜像
+
+```shell
+docker build -f /home/Test/DockerFile -t mycentos:3.0 .
+```
+
+==注意：==后面的点不能取消。打包好以后，就可以使用docker images 查看我们的镜像了。
+
+## 自定义镜像Tomcat8.5
+
+1. 将jdk和tomcat安装包的压缩包拷贝进你需要放置的目录中
+
+2. 编写需要的配置文件
+
+   ```shell
+   FROM centos
+   MAINTAINER yananduobu@qq.com
+   # 把宿主机当前上下文的c.txt文件拷贝到容器/usr/local/路径下，并且改名字为，yananduobu.txt
+   COPY c.txt /usr/local/yananduobu.txt
+   # 把java与tomcat添加到容器中
+   ADD jdk-8u291-linux-x64.tar.gz /usr/local/
+   ADD apache-tomcat-8.5.30.tar.gz /usr/local/
+   # 安装编辑器，让centos可以使用命令vim
+   RUN yum -y install vim
+   # 设置工作时的WORKDIR路径，登录落脚点
+   ENV MYPATH /usr/local/
+   WORKDIR $MYPATH
+   # 配置java与tomcat的环境变量，JAVA_HOME一般配到jkd目录就可以了。
+   ENV JAVA_HOME /usr/local/jdk1.8.0_291
+   ENV CLASSPATH $JAVA_HOME/usr/local/jdk1.8.0_291/lib/dt.jar:$JAVA_HOME/usr/local/jdk1.8.0_291/lib/tools.jar
+   ENV CATALINA_HOME /usr/local/apache-tomcat-8.5.30
+   ENV CATALINA_BASE /usr/local/apache-tomcat-8.5.30
+   ENV PATH $PATH:$JAVA_HOME/bin:$CATALINA_HOME/lib:$CATALINA_HOME/bin
+   # 容器运行时监听的端口
+   EXPOSE 8080
+   # 启动时运行tomcat
+   # ENTRYPOINT [“/usr/local/apache-tomcat-8.5.30/bin/startup.sh”]
+   # CMD ["/usr/local/apache-tomcat-8.5.30/bin/catalina.sh","run"]
+   CMD /usr/local/apache-tomcat-8.5.30/bin/startup.sh && tail -F /usr/local/apache-tomcat-8.5.30/logs/catalina.out
+   ```
+
+3. 打包构建镜像
+
+   ```shell
+   docker build -t mytomcat8.5 .
+   # 这里没有加 -f ，是因为，不需要指定打包的路径，他会自动去找一个叫Dockerfile的文件。
+   -t # 后面加的是你的镜像名字。
+   # 后面的点，不能取消。
+   ```
+
+4. 运行容器
+
+   ```shell
+   docker run -d -p 9080:8080 --name tomcat8.5 -v /home/Test/tomcat9/test:/usr/local/apache-tomcat-8.5.30/webapps/test -v /home/Test/tomcat9/tomcat-logs/:/usr/local//apache-tomcat-8.5.30/logs --privileged=true mytomcat8.5
+   
+   ```
+
+-d # 在后台运行
+   -p # 对外暴露的端口为9080
+   --name # 编辑容器的名称
+   --privileged=true # 有时候运行保存，就加上这一句。
+
+   ```
+   
+5. docker配置数据库
+
+   ```shell
+   # 拉取数据库，选择版本
+   docker pull mysql:5.7
+   # 运行配置。
+   docker run -d -p 3310:3306 -v /home/Test/mysql/conf:/etc/mysql/conf.d -v /home/Test/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 --name mysql mysql:5.7
+   ```
+
+   
 

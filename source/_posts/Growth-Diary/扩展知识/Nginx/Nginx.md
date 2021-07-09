@@ -9,6 +9,8 @@ tags:
 
 # 学习地址
 
+Nginx官网[nginx](http://nginx.org/en/download.html)
+
 学习视屏地址[Nginx](https://www.bilibili.com/video/BV1zJ411w7SV?p=2&spm_id_from=pageDriver)
 
 学习视屏地址[Nginx](https://www.bilibili.com/video/BV1j4411K7g2?from=search&seid=11242539390432733612)
@@ -23,47 +25,69 @@ Nginx（engine x）是一个高性能的HTTP和反向代理服务器，特点是
 
 > 1. 安装依赖项，使用以下命令安装Nginx需要的依赖项。
 >
->    ```js
+>    ```shell
 >    yum -y install gcc zlib zlib-devel pcre-devel openssl openssl-devel
 >    ```
 >
 >    安装好依赖项以后，使用以下命令查看版本号：
 >
->    ```js
+>    ```sh
 >    pcre-config --version
 >    ```
 >
-> 2. 开启防火墙
+> 2. 解压拖进去的nginx安装包
 >
->    ```js
->    systemctl start firewalld
+>    ```shell
+>    tar -xvf + apache-tomcat-9.0.46-fulldocs.tar.gz # + 后面这个是安装包名字。
 >    ```
 >
-> 3. 关闭防火墙
+> 3. 解压好以后进入解压的文件夹执行：**./configure**，编译文件
 >
->    ```js
->    systemctl stop firewalld
+>    ```shell
+>    ./configure
 >    ```
 >
-> 4. 查看防火墙中开放的端口
+> 4. 使用**make && make install**
 >
->    ```js
->    firewall-cmd --list-all
+>    ```shell
+>    make && make install
 >    ```
->
->    后期需要在防火墙中添加端口号，使用以下命令：
->
->    ```js
->    sudo firewall-cmd --add-port=81/tcp --permanent  // 添加一个81端口
->    ```
->
->    添加成功以后，需要重启以下防火墙：
->
->    ```js
->    firewall-cmd --reload // 重启防火墙
->    ```
->
->    这时候再去2、查看防火墙的端口，就会多了一个81端口。
+
+安装成功之后，在usr中会多出来一个文件夹**/usr/nginx**,在nginx中，有sbin的启动脚本。
+
+# 防火墙
+
+1. 开启防火墙
+
+   ```shell
+   systemctl start firewalld
+   ```
+
+2. 关闭防火墙
+
+   ```shell
+   systemctl stop firewalld
+   ```
+
+3. 查看防火墙中开放的端口
+
+   ```shell
+   firewall-cmd --list-all
+   ```
+
+   后期需要在防火墙中添加端口号，使用以下命令：
+
+   ```shell
+   sudo firewall-cmd --add-port=8080/tcp --permanent  # 添加一个81端口
+   ```
+
+   添加成功以后，需要重启以下防火墙：
+
+   ```shell
+   firewall-cmd --reload # 重启防火墙
+   ```
+
+   这时候再去2、查看防火墙的端口，就会多了一个81端口。
 
 # 实现上传压缩包rz
 
@@ -293,7 +317,7 @@ java -version
 
 在浏览器地址栏输入地址：http://106.15.176.231，负载均衡效果，平均分配到8080和8081端口中。
 
-准备工作
+准备工作	
 
 - 准备两台tomact服务器，一台8080，一台8081.
 - 在两台tomcat里面webapps目录中。创建名称是edu的文件夹，在文件夹中创建页面**a.html**，用于测试
