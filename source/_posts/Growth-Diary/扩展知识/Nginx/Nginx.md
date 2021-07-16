@@ -545,4 +545,141 @@ location / {
    systemctl start keepalived.service #启动keepalived 服务器
    ```
 
+
+# 安装SSL证书
+
+1. 进入申请域名证书的网址，在里面输入想申请证书的域名，一定不要输入错误。
+
+   https://freessl.cn/
+
+2. 安装**KeyManager**并且打开他。
+
+3. 进去登录，照着步骤走就是了。
+
+   - 这里要求域名注测成功
+   - 域名已经实名认证
+   - 添加一条**KeyManage**给的解析值，解析类型为TXT。解析值为KeyManage给的值，华为云的添加解析记录需要加上英文状态下的双引号。
+
+4. 添加解析值以后，下一步，检测配置。检测成功以后，会自动打包证书的。这时候下载保存。
+
+5. 开始按照华为云的安装证书步骤一步一步的走
+
+   https://support.huaweicloud.com/usermanual-scm/scm_01_0082.html#scm_01_0082__zh-cn_topic_0000001124217601_scm_01_0082_table4462648181517
+
+   - 第一步
+
+     先搞清楚是系统生成的，还是自己手动生成的。一般都是系统生成的。
+
+     这时候你可以查看解压的文件夹中的Nginx文件夹。我用的是直接打开**KeyManage**，域名后面的三个小点，点开，直接查看PEM。往下滑，就会看到证书链和私钥了。（私钥用的是PKCS1的）。点击一键部署，一般不成功。还是得自己写配置。
+
+   - 第二步
+
+     创建一个名字为`cret`的文件夹，这个文件夹里面创建两个文件分别是：`server.crt`和`server.key`。其中，**server.crt**中保存的是证书和证书链，**server**中保存的是私钥。==注意==这里的cret这个文件夹，必须放在nginx配置文件的nginx.conf同路径下。因为下面配置路径的时候，不能写根路径。
+
+   - 第三部
+
+     修改配置文件，详情见7.
+
+   - 第四步
+
+     检验，配置是否正确。在**/usr/local/nginx**目录下输入：
+
+     ~~~shell
+     sbin/nginx -t
+     ~~~
+
+     如果显示以下类容，证明配置成功
+
+     ~~~shell
+     nginx.conf syntax is ok
+     nginx.conf test is successful
+     ~~~
+
+     但是这里经常不成功。有可能是nginx没有打开ssl配置。这时候需要重新配置nginx。方法如下。到时候再百度搜索这种报错，解决方案都一样。
+
+6. 进入Nginx中进行配置。进入nginx的目录。`/usr/local/nginx/conf/nginx.conf`
+
+7. 配置如下：
+
+   ~~~shell
+   #user  nobody;
+   worker_processes  1;
    
+   events {
+       worker_connections  1024;
+   }
+   
+   http {
+       include       mime.types;
+       default_type  application/octet-stream;
+   
+       #  log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+       #                  '$status $body_bytes_sent "$http_referer" '
+       #                  '"$http_user_agent" "$http_x_forwarded_for"';
+   
+       #access_log  logs/access.log  main;
+   
+       sendfile        on;
+       # tcp_nopush     on;
+   
+       # keepalive_timeout  0;
+       keepalive_timeout  65;
+   
+       server {
+          listen       80;
+   #       server_name  123.60.51.170;
+          server_name  www.xn--xkr52xh3grqg.cn;
+          return 301 https://$server_name$request_uri;
+          #rewrite ^(.*)$  https://$host$1 permanent; 
+           #access_log  logs/host.access.log  main;
+   
+           location / {
+              root   html;
+              index  index.html index.htm;
+           }
+           # 这是做动静分离加的测试页面。在data之下;
+           location /www/ {
+   	root   /data/;
+               index  index.html index.htm;
+           }
+   
+           # 这是做动静分离添加的图片路径;
+   	location /image/ {
+                  root   /data/;
+                  autoindex   on;
+             }
+        }
+   
+   
+       # another virtual host using mix of IP-, name-, and port-based configuration
+   
+       # HTTPS server
+       
+       server {
+           listen		443 ssl;
+           # listen		123.60.51.170:9001;
+   
+           server_name  www.xn--xkr52xh3grqg.cn;
+   #        rewrite ^(.*)$  https://$host$1 permanent; 
+   #        rewrite ^/(.*)$  http://www.xn--xkr52xh3grqg.cn/$1 permanent; 
+   
+           ssl_certificate     cert/_server.crt;	
+           ssl_certificate_key  cert/_server.key;
+   
+           ssl_session_cache    shared:SSL:1m;
+           ssl_session_timeout  5m;
+   
+           ssl_ciphers  HIGH:!aNULL:!MD5;
+           ssl_prefer_server_ciphers  on;
+   
+           location / {
+               root   html;
+               index  index.html index.htm;
+           }
+       }
+   
+   }
+   ~~~
+
+8. 网站配置好以后，重启nginx服务器。如果显示重定向次数过多。这有可能是配置中，同时使用配置了多个server模块。网上搜索301报错。可以解决。
+
