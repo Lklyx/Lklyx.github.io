@@ -1112,14 +1112,10 @@ docker build -f /home/Test/DockerFile -t mycentos:3.0 .
 
    ```shell
    docker run -d -p 9080:8080 --name tomcat8.5 -v /home/Test/tomcat9/test:/usr/local/apache-tomcat-8.5.30/webapps/test -v /home/Test/tomcat9/tomcat-logs/:/usr/local//apache-tomcat-8.5.30/logs --privileged=true mytomcat8.5
-   
-   ```
-
--d # 在后台运行
+   -d # 在后台运行
    -p # 对外暴露的端口为9080
    --name # 编辑容器的名称
    --privileged=true # 有时候运行保存，就加上这一句。
-
    ```
    
 5. docker配置数据库
