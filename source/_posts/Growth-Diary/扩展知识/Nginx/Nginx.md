@@ -545,8 +545,7 @@ location / {
    systemctl start keepalived.service #启动keepalived 服务器
    ```
 
-
-# 安装SSL证书
+# 安装SSL证书+部署
 
 1. 进入申请域名证书的网址，在里面输入想申请证书的域名，一定不要输入错误。
 
@@ -630,8 +629,8 @@ location / {
    #       server_name  123.60.51.170;
           server_name  www.xn--xkr52xh3grqg.cn;
           return 301 https://$server_name$request_uri;
-          #rewrite ^(.*)$  https://$host$1 permanent; 
-           #access_log  logs/host.access.log  main;
+          # rewrite ^(.*)$  https://$host$1 permanent; 
+          # access_log  logs/host.access.log  main;
    
            location / {
               root   html;
