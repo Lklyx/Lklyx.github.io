@@ -450,7 +450,7 @@ location / {
 
    keepalived的安装位置在：
 
-   ```js
+   ```shell
    cd /etc // 安装位置
    cd keepalievd/  // 进入目录
    vi keepalievd.conf // 进入配置文件
@@ -460,7 +460,7 @@ location / {
 
    1. **修改主机（192.168.16.128）keepalived配置文件**
 
-      ```cmd
+      ```shell
       #检测脚本
       vrrp_script chk_http_port {
           script "/usr/local/src/nginx_check.sh" #心跳执行的脚本，检测nginx是否启动
@@ -496,7 +496,7 @@ location / {
 
    2. **修改备机（192.168.16.129）keepalived配置文件**
 
-      ```cmd
+      ```shell
       #检测脚本
       vrrp_script chk_http_port {
           script "/usr/local/src/nginx_check.sh" #心跳执行的脚本，检测nginx是否启动
@@ -526,7 +526,7 @@ location / {
 
    3. **检测脚本：**
 
-      ```cmd
+      ```shell
       #!/bin/bash
       #检测nginx是否启动了
       A=`ps -C nginx --no-header |wc -l`        
@@ -540,7 +540,7 @@ location / {
    
 5. 分别启动两台服务器的nginx和keepalived。
 
-   ```cmd
+   ```shell
    service keepalived restart	#启动keepalived 虚拟机
    systemctl start keepalived.service #启动keepalived 服务器
    ```
