@@ -96,7 +96,7 @@ tags:
 >       docker top + ID
 >    
 >       # 查看容日的日志
->       docker logs -f -t --tail=5 + ID
+>       docker logs -f -t --tail=5 + ID 
 >       # -f 跟踪日志输出
 >       # -t 显示时间戳
 >       # --tail=N 列出最新的 N 条内容。
