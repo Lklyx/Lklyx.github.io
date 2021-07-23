@@ -17,7 +17,7 @@ timezone: 'Asia/Shanghai'
 url: https://Lklyx.github.io
 root: /
 # permalink: :year/:month/:day/:title/ 默认
-permalink: :title/
+permalink: title/
 permalink_defaults:
 
 # Directory
