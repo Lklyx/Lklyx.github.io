@@ -53,8 +53,9 @@ prismjs:
 
 # Category & Tag
 default_category: uncategorized
-category_map: # edit for Theme.shoka
-  # 分类解说：如下面 ① We-Game: ② We-Games。当然不需要更改名字的不用到这里来配置。.md文件中带一张名为cover的图片既可。
+category_map: 
+  ## edit for Theme.shoka
+  ## 分类解说：如下面 ① We-Game: ② We-Games。当然不需要更改名字的不用到这里来配置。.md文件中带一张名为cover的图片既可。
   # 都是键值对的方式，左边都是需要显示出来的文字（自己想改的文字），右边则是文件夹的名字。
   # 在md文件中，头部标签中，categories: - [We-Games,英雄联盟,刺客]，categories：是分类的路径，第一个是第一层文件夹改过之后的名字，
   # 也就是分类卡片右上角显示的文字。第二个是第二层文件夹改过之后的名字，也就是分类卡片正中间显示的文字，第三个是卡片翻转以后显示的文字
@@ -92,16 +93,18 @@ theme: shoka # edit for Theme.shoka
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
+
 deploy:
   type: 'git'
-  repo: 'git@github.com:Lklyx/Lklyx-Lklyx-Lklyx.github.io.git'
+  # 本次新改
+  # repo: 'git@github.com:Lklyx/Lklyx-Lklyx-Lklyx.github.io.git'
+  repo: 'git@github.com:Lklyx/Lklyx.github.io.git'
   branch: master
 
 # edit for Theme.shoka
 autoprefixer:
   exclude:
     - '*.min.css'
-
 markdown:
   render: # 渲染器设置
     html: false # 过滤 HTML 标签
@@ -201,7 +204,7 @@ live2d:
     # use: live2d-widget-model-tororo 超可爱的小白猫
     # use: live2d-widget-model-tsumiki 领带小萝莉
     # use: live2d-widget-model-wanko 碗里的小熊
-    # use: live2d-widget-model-z16 小姐姐
+    # use: live2d-widget-model-z16 # 小姐姐
     # use: live2d-widget-model-chitose 绅士男
     # use: live2d-widget-model-gf 动态GF
   display:

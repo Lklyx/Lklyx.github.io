@@ -1,19 +1,22 @@
-4、本地预览
-hexo s
-
 1、安装hexo
 npm install hexo-cli -g
 
 2、克隆hexo配置文件到本地
-hexo init blog
+hexo init blog || 自己的地址
 
 3、安装运行依赖
 npm install
 
-5、安装hexo发布依赖
+4、安装hexo发布依赖
 npm install hexo-deployer-git --save
 
+5、本地预览
+hexo s
+
 6、生成静态页面并部署
-hexo clean && hexo g --d
+hexo clean &&  hexo g --d
+
+7、部署algolia搜索评论统计
+hexo algolia
 
 
