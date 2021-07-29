@@ -21,10 +21,11 @@ copyright: ture
   owner: # 您的名字
   url: # 您的网址
   desc: # 简短描述
-  image: # 一张图片
+  image: # 一张图片做头像
   color: # 方块颜色
 ```
 ~~~
 
 # 各位大佬
+
 {% linksfile friends/_data.yml %}
