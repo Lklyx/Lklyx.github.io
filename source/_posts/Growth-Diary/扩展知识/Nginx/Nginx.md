@@ -682,3 +682,77 @@ location / {
 
 8. 网站配置好以后，重启nginx服务器。如果显示重定向次数过多。这有可能是配置中，同时使用配置了多个server模块。网上搜索301报错。可以解决。
 
+# 开启Nginx的SSL模块
+
+1. Nginx如果未开启SSl模块，配置`https`时会提示错误。
+
+   原因很简单：nginx缺少http_ssl_module模块，编译安装的时候带上--with-http_ssl_module配置就行了。
+
+2. Nginx开启SSL模块
+
+   切换到源码包：也就是自己的安装包所在的路径位置。
+
+   ```sh
+   cd /usr/src/nginx-1.14.2
+   ```
+
+   查看nginx原来模块
+
+   ```sh
+   /usr/local/nginx/sbin/nginx -V
+   ```
+
+   在configure arguments:后面显示的原有的configure参数如下：
+
+   ```shell
+   --prefix=/usr/local/nginx --with-http_stub_status_module
+   ```
+
+   这个就是装好，有SSL模块的。
+
+3. 新配置
+
+   在我们的源码包路径下这样配置：
+
+   ```shell
+   ./configure --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module
+   ```
+
+4. 配好了上面的配置以后，
+
+   ```shell
+   make
+   ```
+
+   `注意`：这里不能配置 ==make install==。否者就是覆盖安装了。
+
+5. 备份原来安装好的nginx
+
+   这个是在哪里敲命令都可以，毕竟是复制嘛，只要写清楚复制什么的路径，复制到哪里，就可以了。
+
+   ```shell
+   cp /usr/local/nginx/sbin/nginx /usr/local/nginx/sbin/nginx.bak
+   ```
+
+   这nginx安装的路径下，复制一个同路径的文件 来作为备份。
+
+6. 停止nginx。
+
+   ```shell
+   ./nginx
+   kill ./nginx
+   ```
+
+7. 复制刚编译好的nginx，覆盖原来的nginx。
+
+   刚编译好的，就是在我们安装包路径下的`./objs/nginx`文件中。
+
+   原来的就在原来安装的位置。`/usr/local/nginx/sbin/`
+
+8. 启动nginx。通过命令查看是否加入SSL模块成功
+
+   ```shell
+   /usr/local/nginx/sbin/nginx -V　
+   ```
+
+   
