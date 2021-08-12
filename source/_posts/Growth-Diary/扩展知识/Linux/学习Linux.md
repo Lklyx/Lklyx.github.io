@@ -329,3 +329,317 @@ linux中没有盘符的概念，只有一个根目录。根目录用`/`表示。
         <img src="../../../../images/扩展知识/Linux/image-20210528112234389.png" alt="image-20210528112234389" style="zoom:;" />
    
         也都可以加上**-r**，递归。也就是所有的子文件、子文件夹都修改问这个所属用户、所属组。
+
+# 在Linux系统中安装Tomcat
+
+## 安装JDK
+
+安装tomcat之前，必须要安装JDK。
+
+### 使用yum一键安装
+
+~~~shell
+yum install -y java-1.8.0-openjdk-devel // 这里装完以后记得去配置jdk环境变量
+~~~
+
+### 查看java版本
+
+~~~shell
+java -version
+~~~
+
+## 配置环境变量
+
+### 找到java安装的路径
+
+~~~shell
+whereis java // 查看路径
+// /usr/bin/java /usr/lib/java /etc/java /usr/share/java /usr/share/man/man1/java.1.gz
+
+ ls -lrt /usr/bin/java // 查看java的bin之下路径
+// /usr/bin/java -> /etc/alternatives/java
+
+ls -lrt /etc/alternatives/java // 查看需要配置环境的路径
+ // /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64/jre/bin/java
+/usr/lib/jvm/jre-1.7.0-openjdk.x86_64/bin/java
+~~~
+
+### 进入文件夹配置环境变量
+
+~~~shell
+vim /etc/profile // 进入java环境变量配置单的文件
+~~~
+
+`在文件的末尾处添加以下代码：`
+
+~~~shell
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.302.b08-0.el8_4.x86_64
+export PATH=$JAVA_HOME/jre/bin:$PATH
+export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+~~~
+
+`注意：`上面代码的第一行，**export JAVA_HOME=**之后，改为你自己的路径，切注意，路径不包含版本号、系统号之后的`/jre/bin/java` 这个路径。
+
+### 使配置生效
+
+~~~shell
+source /etc/profile
+~~~
+
+### 查看JAVA_HOME环境变量
+
+~~~shell
+echo $JAVA_HOME
+// /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64
+~~~
+
+# 下载Tomcat
+
+进入Tomcat官网下载页面，下载需要的版本的Tomcat。官网地址：[Tomcat](https://tomcat.apache.org/download-80.cgi)
+
+# 安装Tomcat
+
+把下载好的压缩包，上传到Linux系统中。
+
+1. 创建目录
+
+   ~~~shell
+   mkdir /usr/local/tomcat/
+   ~~~
+
+2. 解压到需要安装的目录
+
+   ~~~shell
+   tar -zxvf apache-tomcat-8.5.49.tar.gz -C /usr/local/tomcat/
+   ~~~
+
+   解压缩以后，进入/usr/local/tomcat/目录后，你会发现多一个目录，它就是Tomcat所在目录。Tomcat版本不同，这个目录名有所不同，这里是**apache-tomcat-8.5.49**。
+
+3. 启动
+
+   执行Tomcat的启动脚本
+
+   ~~~shell
+   /usr/local/tomcat/apache-tomcat-8.5.49/bin/startup.sh
+   ~~~
+
+   返回的结果如下：
+
+   ~~~shell
+   Using CATALINA_BASE:   /usr/local/tomcat/apache-tomcat-8.5.49
+   Using CATALINA_HOME:   /usr/local/tomcat/apache-tomcat-8.5.49
+   Using CATALINA_TMPDIR: /usr/local/tomcat/apache-tomcat-8.5.49/temp
+   Using JRE_HOME: /usr/local/java/jdk1.8.0_231/jre
+   Using CLASSPATH: /usr/local/tomcat/apache-tomcat-8.5.49/bin/bootstrap.jar:/usr/local/tomcat/apache-tomcat-8.5.49/bin/tomcat-juli.jar
+   Tomcat started.
+   ~~~
+
+   启动完成以后。
+
+4. 验证
+
+   Tomcat默认端口是8080，在浏览器中输入对应IP和端口，比如：http://192.168.1.111:8080，就可以访问了
+
+# 在Tomcat上部署项目
+
+把需要部署的项目放到webapp目录之下。这时候我们输入自己的ip:8080/项目文件名/index.html可以正常的查看到我们的项目。但这个时候，我们发现，在访问我们的项目内容时，必须加上我们的项目名字"myweb"，这样很不好。
+
+1. 我们可以编辑conf/server.xml进行配置，打开server.xml文件，找到Host元素，默认配置如下：
+
+   ~~~shell
+    <Host name="localhost"  appBase="webapps"
+            unpackWARs="true" autoDeploy="true">
+       <Context docBase="myProject" path=""/>
+   
+       <!-- SingleSignOn valve, share authentication between web applications
+            Documentation at: /docs/config/valve.html -->
+       <!--
+       	<Valve className="org.apache.catalina.authenticator.SingleSignOn" />
+        -->
+   
+       <!-- Access log processes all example.
+            Documentation at: /docs/config/valve.html
+            Note: The pattern used is equivalent to using pattern="common" -->
+       <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
+              prefix="localhost_access_log" suffix=".txt"
+              pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+    </Host>
+   
+   ~~~
+
+   我们需要在Host内部增加Context的内容，增加之后如下：
+
+   ~~~shell
+    <Host name="localhost"  appBase="webapps"
+            unpackWARs="true" autoDeploy="true">
+       <Context docBase="myProject" path=""/>
+   
+       <!-- SingleSignOn valve, share authentication between web applications
+            Documentation at: /docs/config/valve.html -->
+       <!--
+       	<Valve className="org.apache.catalina.authenticator.SingleSignOn" />
+        -->
+   
+       <!-- Access log processes all example.
+            Documentation at: /docs/config/valve.html
+            Note: The pattern used is equivalent to using pattern="common" -->
+       <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
+              prefix="localhost_access_log" suffix=".txt"
+              pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+    </Host>
+   
+   ~~~
+
+   这个时候，就可以通过这种不用加项目名的http://localhost:8080/index.html形式访问了
+
+   这里需要==注意：==的是
+
+   ~~~shell
+   <Context docBase="myProject" path=""/>
+   ~~~
+
+   docBase后面跟的是我们的项目名称。
+
+
+
+# Linux下重启Tomcat
+
+1. 进入linux系统下Tomcat的bin目录
+
+   ~~~shell
+   /usr/local/tomcat/apache-tomcat-8.5.30/bin
+   ~~~
+
+2. 关闭一下Tomcat服务，特别是已经启动的情况下，只不过有些异常
+
+   ~~~shell
+   ./shutdown.sh
+   ~~~
+
+3. 检查一下tomcat是否确实已经关闭
+
+   ~~~shell
+   ps -ef | grep java
+   ~~~
+
+   假如出现以下类似的提示，表示tomcat已经关闭
+
+   `root       16117   16036  0 13:51 pts/0    00:00:00 grep --color=auto java`
+
+4. 最后重新启动tomcat
+
+   ~~~shell
+   ./startup.sh
+   ~~~
+
+   
+
+# Tomcat部署域名+证书
+
+部署步骤：
+
+1. 搭建Tomcat环境。
+2. 申请域名证书。
+3. 部署域名的http访问。
+4. 部署域名的https访问。
+5. 强制使http跳转至https。
+
+我这里从第三步开始。
+
+## 部署域名的http访问。
+
+ 部署好Tomcat后，找到对应目录下的conf文件找到server.xml文件修改对应的配置。找到Host添加域名绑定配置
+
+~~~shell
+<Host name="www.xn--xkr52xh3grqg.cn"  appBase="webapps"
+              unpackWARs="true" autoDeploy="true">
+        <Context docBase="myProject" path=""/>
+
+        <!-- SingleSignOn valve, share authentication between web applications
+             Documentation at: /docs/config/valve.html -->
+        <!--
+        <Valve className="org.apache.catalina.authenticator.SingleSignOn" />
+        -->
+        
+        <!-- Access log processes all example.
+             Documentation at: /docs/config/valve.html
+             Note: The pattern used is equivalent to using pattern="common" -->
+        <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
+               prefix="localhost_access_log" suffix=".txt"
+               pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+
+</Host>
+~~~
+
+`配置详情：`
+
+~~~shell
+ <Host name="域名"  appBase="webapps"
+	 unpackWARs="true" autoDeploy="true">
+ 	 <Context path="" docBase="网站文件路径"/>
+ </Host>
+~~~
+
+测试域名访问成功后，进行下一步测试。
+
+## 配置域名https访问
+
+将域名的ssl证书放到Tomcat中的conf文件中。在server.xml文件中找到ssl配置中做如下配置修改：
+
+~~~shell
+<Connector port="443" protocol="org.apache.coyote.http11.Http11NioProtocol"
+               maxThreads="150" SSLEnabled="true" defaultSSLHostConfigName="www.xn--xkr52xh3grqg.cn">
+        <SSLHostConfig hostName="www.xn--xkr52xh3grqg.cn">
+            <Certificate certificateKeystoreFile="conf/qianmonianhua.jks" certificateKeystorePassword="123456"
+                         type="RSA" />
+        </SSLHostConfig>
+</Connector>
+~~~
+
+这一段仔细找，默认是写好了的。但是是注释的。我们需要把注释符号去掉。
+
+`配置详情：`
+
+~~~shell
+<Connector port="443" protocol="org.apache.coyote.http11.Http11Nio2Protocol" maxThreads="150" SSLEnabled="true" defaultSSLHostConfigName="域名">   
+  <SSLHostConfig hostName="域名">   
+    <Certificate certificateKeystoreFile="conf/证书路径以及名称" certificateKeystorePassword="证书密码" type="RSA"/>   
+  </SSLHostConfig>      
+</Connector>
+~~~
+
+这里一定不要忘了第一行上面的 `defaultSSLHostConfigName="域名"`，否则会出现404！
+
+为了做强制https。所以我也在这时候修改了如下配置：
+
+```shell
+<Connector port="80" protocol="HTTP/1.1"
+    connectionTimeout="20000"
+    redirectPort="443" />
+```
+
+redirectPort改成ssl的connector的端口443，重启后便会生效
+
+## 强制使http跳转至https
+
+到conf目录下的web.xml。在</welcome-file-list>后面，</web-app>，也就是倒数第二段里，加上这样一段
+
+~~~shell
+<login-config>
+    <!-- Authorization setting for SSL -->
+    <auth-method>CLIENT-CERT</auth-method>
+    <realm-name>Client Cert Users-only Area</realm-name>
+    </login-config>
+    <security-constraint>
+    <!-- Authorization setting for SSL -->
+    <web-resource-collection>
+    <web-resource-name>SSL</web-resource-name>
+    <url-pattern>/*</url-pattern>
+    </web-resource-collection>
+    <user-data-constraint>
+    <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    </user-data-constraint>
+    </security-constraint>
+~~~
+
+这一段在`web.xml`文件的最下面。最后的位置。加上保存即可。

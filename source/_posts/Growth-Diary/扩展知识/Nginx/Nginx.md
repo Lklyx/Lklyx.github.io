@@ -93,13 +93,13 @@ Nginx（engine x）是一个高性能的HTTP和反向代理服务器，特点是
 
 安装**lrzsz**
 
-```js
+```shell
 yum -y install lrzsz
 ```
 
 # 解压压缩包命令
 
-```js
+```shell
 tar -xvf + apache-tomcat-9.0.46-fulldocs.tar.gz // + 后面这个是安装包名字。
 ```
 
@@ -107,13 +107,13 @@ tar -xvf + apache-tomcat-9.0.46-fulldocs.tar.gz // + 后面这个是安装包名
 
 ## 我们直接可以使用yum一键安装
 
-```java
+```shell
 yum install -y java-1.8.0-openjdk-devel // 这里装完以后记得去配置jdk环境变量
 ```
 
 查看java版本，
 
-```java
+```shell
 java -version
 ```
 
@@ -121,7 +121,7 @@ java -version
 
 1. 找到java安装的路径
 
-   ```js
+   ```shell
    whereis java // 查看路径
    // /usr/bin/java /usr/lib/java /etc/java /usr/share/java /usr/share/man/man1/java.1.gz
    
@@ -135,14 +135,14 @@ java -version
 
 2. 进入文件夹配置环境变量
 
-   ```java
+   ```shell
    vim /etc/profile // 进入java环境变量配置单的文件
    ```
 
    在文件的末尾处添加以下代码：
 
-   ```java
-   export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.292.b10-1.1.al7.x86_64
+   ```shell
+   export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.302.b08-0.el8_4.x86_64
    export PATH=$JAVA_HOME/jre/bin:$PATH
    export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
    ```
@@ -151,13 +151,13 @@ java -version
 
 3. 使配置生效
 
-   ```java
+   ```shell
    source /etc/profile
    ```
 
 4. 查看JAVA_HOME环境变量
 
-   ```java
+   ```shell
    echo $JAVA_HOME
    // /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64
    ```
@@ -178,19 +178,19 @@ java -version
 
 2. **启动nginx**
 
-   ```js
+   ```shell
    ./nginx
    ```
 
 3. **关闭nginx**
 
-   ```js
+   ```shell
    ./nginx -s stop
    ```
 
 4. **重新加载nginx**
 
-   ```js
+   ```shell
    ./nginx -s reload
    ```
 
@@ -198,7 +198,7 @@ java -version
 
 1. 配置文件的位置：
 
-   ```js
+   ```shell
    ./usr/local/nginx/conf/nginx.conf
    ```
 
