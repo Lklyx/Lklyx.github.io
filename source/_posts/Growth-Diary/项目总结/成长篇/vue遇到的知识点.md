@@ -2,7 +2,7 @@
 title: VUE中遇到的知识点。
 date: 2020/11/25
 categories:
-- [历练ing,VUE]
+- [历练ing,项目总结,VUE成长篇]
 tags:
 - VUE
 - 成长
@@ -212,7 +212,7 @@ tags:
 >    <template>
 >      <vue-qr :text="downloadData.url" :margin="0" colorDark="#f67b29" colorLight="#fff" :logoSrc="downloadData.icon + '?cache'" :logoScale="0.3" :size="200"></vue-qr>
 >    </template>
->     
+>           
 >    <script>
 >    import vueQr from 'vue-qr'
 >    export default {
@@ -291,4 +291,6 @@ methods: {
    }
 },
 ```
+
+
 
