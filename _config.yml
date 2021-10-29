@@ -98,8 +98,8 @@ theme: shoka # edit for Theme.shoka
 deploy:
   type: 'git'
   # 本次新改
-  # repo: 'git@github.com:Lklyx/Lklyx-Lklyx-Lklyx.github.io.git'
-  repo: 'git@github.com:Lklyx/Lklyx.github.io.git'
+  # repo: 'git@github.com:Lklyx/Lklyx-Lklyx-Lklyx.github.io.git' https://github.com/Lklyx/Lklyx.github.io.git
+  repo: 'https://github.com/Lklyx/Lklyx.github.io.git'
   branch: master
 
 # edit for Theme.shoka
