@@ -17,7 +17,7 @@ tags:
 
 2. 代码如下：
 
-   ```html
+   ```vue
    <template>
      <section>
        <div class="card">
@@ -212,7 +212,7 @@ tags:
 >    <template>
 >      <vue-qr :text="downloadData.url" :margin="0" colorDark="#f67b29" colorLight="#fff" :logoSrc="downloadData.icon + '?cache'" :logoScale="0.3" :size="200"></vue-qr>
 >    </template>
->           
+>              
 >    <script>
 >    import vueQr from 'vue-qr'
 >    export default {

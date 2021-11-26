@@ -77,7 +77,7 @@ tags:
 >      width: 0rpx;
 >      height: 0rpx;
 >      border-width: 0rpx 25rpx 25rpx;
->           
+>              
 >    }
 >    .down{
 >      position:absolute;
@@ -130,4 +130,28 @@ tags:
 > ```
 >
 > 标题和表格中，文字超出一定长度后省略，使用`…`代替。
+
+## 首行缩进2字符，或者第二行缩进2字符
+
+> 我们知道**css**中**text-indent**属性可以使每个段落首行开头文字缩进，如缩进2个文字距离样式。
+>
+> ```css
+> p{
+> 	text-indent: 2em; /*em是相对单位*/
+> }
+> ```
+>
+> 注：em是相对长度单位。相对于当前对象内文本的字体尺寸。我们中文段落一般每段前空两个汉字。实际上，就是首行缩进了**2em**。
+>
+> 那如果我们想让第二行缩进一格呢?
+>
+> ```css
+> p {
+> 　　text-indent: -2em;
+> 　　margin-left: 2em; /*padding-left:2em*/
+> }
+> ```
+>
+> 设置text-indent: -2em;以后p标签中第一行文字向左偏移，这样第二行开始的文字就等于缩进了，
+> 但是这样设置会导致第一行向左超出div，所以再用margin-left使p标签整体右移即可，不过也可以用 padding-left:2em ，这样IE8里也能显示。
 
