@@ -2,7 +2,7 @@
 title: Git常用命令
 date: 2021/04/12
 categories:
-- [历练ing,Blog]
+- [历练ing,Blog,工具]
 tags:
 - Git
 
@@ -250,4 +250,12 @@ git remote -v
 ```js
 git remote show origin
 ```
+
+# 使用Git工具管理仓库
+
+初学者适合用一些Git工具，这样就不用记那些很长的命令了。我是学了git以后再用工具的，当然会用工具也能节约很多开发时间、也很方便。下面我推荐一款git工具：
+
+`SourceTree`
+
+老规矩，直接官网下载，这样就有最新版了。好像安装使用的时候需要用邮箱注册一下，如果没有谷歌邮箱那就翻墙。
 
