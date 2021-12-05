@@ -2,7 +2,7 @@
 title: GitHub中遇到的问题
 date: 2021/03/17
 categories:
-- [历练ing,Blog]
+- [历练ing,Blog,工具]
 tags:
 - GitHub
 
@@ -21,5 +21,12 @@ tags:
    > 13.229.188.59 github.com
    > 140.82.112.4 github.com
    
-5. 借阅这位博主的地址：https://zhuanlan.zhihu.com/p/107334179?ivk_sa=1024320u
+5. 如果还是不行，那就借阅这位博主的地址：https://zhuanlan.zhihu.com/p/107334179?ivk_sa=1024320u。
+
+6. `工具`：
+
+   这里我们可以借助一个工具来更新自己电脑里面的host文件。不用每次去找路径在以管理员身份打开，简化了很多繁琐的步骤**:SwitchHosts**，直接去官网下载就可以了。也可以到我的百度网盘自己提取，下面附上我的百度网盘地址。
+
+   > 链接：https://pan.baidu.com/s/1J-UspFd82wENMxjGE4RP4g 
+   > 提取码：arp0 
 
