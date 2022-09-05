@@ -14,7 +14,7 @@ timezone: 'Asia/Shanghai'
 # URL
 ## If your site is put in a subdirectory, set url as 'http://example.com/child' and root as '/child/'
 # url: http://example.com
-url: https://Lklyx.github.io
+url: https://github.com/Lklyx/Lklyx.github.io  # 这里填写的是自己的github的地址。
 root: /
 # 默认
 # permalink: :year/:month/:day/:title/

@@ -110,7 +110,9 @@ hexo.extend.helper.register('_url', function(path, text, options = {}) {
 
 hexo.extend.helper.register('_image_url', function(img, path = '') {
   const { statics } = hexo.theme.config;
-  const { post_asset_folder } = hexo.config;
+  //  const { post_asset_folder } = hexo.config;  这是之前的代码,后面改为下面的一句。
+
+  const { post_asset_folder } = true;
 
   if (img.startsWith('//') || img.startsWith('http')) {
     return img
