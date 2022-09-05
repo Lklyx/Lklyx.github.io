@@ -1282,7 +1282,7 @@ man mv  	//man命令使用q退出来。
         <content type="html">&lt;h2 id=&#34;1-实现数字慢慢的增加动画数字滚动计时&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#1-实现数字慢慢的增加动画数字滚动计时&#34;&gt;#&lt;/a&gt; 1、实现数字慢慢的增加动画（数字滚动计时）&lt;/h2&gt;
 &lt;p&gt;​	运用 vue 插件  &lt;code&gt;vue-count-to&lt;/code&gt;  实现。&lt;/p&gt;
 &lt;h3 id=&#34;下面为测试图片&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#下面为测试图片&#34;&gt;#&lt;/a&gt; 下面为测试图片&lt;/h3&gt;
-&lt;p&gt;​	&lt;img data-src=&#34;D:%5CMyProject%5CLklyx.github.io%5Csource_posts%5CGrowth-Diary%5C%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86%5C%E5%89%8D%E7%AB%AF%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B0%8F%E6%8F%92%E4%BB%B6%5Cimg%5Cimage-20220905163144970.png&#34; alt=&#34;image-20220905163144970-测试图片&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;​	&lt;img data-src=&#34;D:%5CMyProject%5CLklyx.github.io%5Csource%5Cimages%5C%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86%5C%E5%89%8D%E7%AB%AF%E6%8F%92%E4%BB%B6%5Cimage-20220905163144970.png&#34; alt=&#34;image-20220905163144970-测试图片&#34; /&gt;&lt;/p&gt;
 </content>
         <category term="历练ing" scheme="https://lklyx.github.io/categories/Growth-Diary/" />
         <category term="扩展知识" scheme="https://lklyx.github.io/categories/Growth-Diary/%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86/" />
