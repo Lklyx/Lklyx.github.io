@@ -438,3 +438,97 @@ pageChange(pn) {
 ```
 
 分页效果使用在element ui的表格中，表格数据过多时，使它可以点击下一页。实现翻页，让页面美化。上面代码中，`layou`t是组件的布局，其中**prev**是表示上一页，默认是一个箭头。可以换为**prev-test**+文字，自定义文字。反之`next`。中间的pager是组件的主体部分，显示一共几页。要给分页按钮添加颜色使用background属性即可。**page-size**每页显示条目个数，即每页多少行。**total**总的条目数，一共有多少行。pn代表当前行。点击方法，点击以换分页显示数据。ps代表每页可以显示多少行。
+
+# Element Ui，实现表格左右拖动滑动
+
+直接在main.js中全局添加
+	使用：在el-table组件里面加上组件：`v-tableMove` 即可。
+	代码：
+
+```js
+	// 全局添加table左右拖动效果的指令
+	Vue.directive('tableMove', {
+	  bind: function(el, binding, vnode) {
+		var odiv = el // 获取当前表格元素
+		// 修改样式小手标志
+		// el.style.cursor = 'pointer'
+		el.querySelector('.el-table .el-table__body-wrapper').style.cursor = 'pointer'
+
+		var mouseDownAndUpTimer = null
+		var mouseOffset = 0
+		var mouseFlag = false
+
+		odiv.onmousedown = (e) => {
+		  const ePath = composedPath(e)
+		  // 拖拽表头不滑动
+		  if (ePath.some(res => { return res && res.className && res.className.indexOf('el-table__header') > -1 })) return
+
+		  if (e.which !== 1) return
+
+		  mouseOffset = e.clientX
+		  mouseDownAndUpTimer = setTimeout(function() {
+			mouseFlag = true
+		  }, 80)
+		}
+		odiv.onmouseup = (e) => {
+		  setTimeout(() => {
+			// 解决拖动列宽行不对齐问题--渲染表格
+			vnode.context.$refs['yourRefName'].doLayout()
+		  }, 200)
+		  if (mouseFlag) {
+			mouseFlag = false
+		  } else {
+			clearTimeout(mouseDownAndUpTimer) // 清除延迟时间
+		  }
+		}
+		odiv.onmouseleave = (e) => {
+		  setTimeout(() => {
+			// 解决拖动列宽行不对齐问题--渲染表格
+			vnode.context.$refs['yourRefName'].doLayout()
+		  }, 200)
+		  mouseFlag = false
+		}
+
+		odiv.onmousemove = (e) => {
+		  if (e.which !== 1) return
+
+		  const divData = odiv.querySelector('.el-table .el-table__body-wrapper')
+		  if (mouseFlag && divData) {
+			// 设置水平方向的元素的位置
+			divData.scrollLeft -= (-mouseOffset + (mouseOffset = e.clientX))
+		  }
+		}
+
+		// 解决有些时候,在鼠标松开的时候,元素仍然可以拖动;
+		odiv.ondragstart = (e) => {
+		  e.preventDefault()
+		}
+
+		odiv.ondragend = (e) => {
+		  e.preventDefault()
+		}
+
+		// 是否拖拽可选中文字
+		odiv.onselectstart = () => {
+		  return false
+		}
+
+		//浏览器Event.path属性不存在
+		function composedPath(e) {
+		  // 存在则直接return
+		  if (e.path) { return e.path }
+		  // 不存在则遍历target节点
+		  let target = e.target
+		  e.path = []
+		  while (target.parentNode !== null) {
+			e.path.push(target)
+			target = target.parentNode
+		  }
+		  // 最后补上document和window
+		  e.path.push(document, window)
+		  return e.path
+		}
+	  }
+	)
+```
+
