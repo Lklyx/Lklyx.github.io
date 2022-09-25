@@ -7,5 +7,95 @@ tags:
 - React
 ---
 
-# 什么是React？
+# JsonServer
+
+在电脑中全局装jsonServe：
+
+```js
+npm install -g json-server
+```
+
+安装好了以后在创建一个普通的db.json文件
+
+```json
+{
+    "posts":[
+		{"id": 1，"title": "json-server", "author": "typicode"}
+    ],
+	"comments":[
+		{ "id": 1,"body": "some comment","postId" : 1 }
+    ],
+	"profile":{"name": "typiode"}
+}
+```
+
+最后启动刚才创建好的jsonserver，`json-serve` + `路径` + `port 端口号`，一般就是在当前的json文件下启动，所以直接`.\`json文件名字。
+
+```js
+json-server .\test.json --port 4000 // 这里需要注意一下路径问题，相对路径。
+```
+
+## JsonServer（取、增、删、改）
+
+1. 取数据：**get**
+
+   ```js
+   axios.get("http://localhost:3001/posts").then(res=>{
+        console.log(res);
+   })
+   ```
+
+2. 增：**post**
+
+   ```js
+   const params = {
+   	title: '3333'，
+   	author: '张三'
+   }
+   axios.post("http://localhost:3001/posts"，params)
+   ```
+
+3. 修改： **put**（全局更新），直接将你传入的数据替换之前存在的那一条数据，没有改的直接替换掉、删掉。例如下面的一条数据，插入以后posts接口中id为1的数据。就只有title属性了。之前的author就没有了。
+
+   ```js
+   const params = {
+   	title: '3333-修改',
+   }
+   axios.put("http://localhost:3001/posts/1",params)
+   ```
+
+   
+
+4. 修改-更新：**patch**（局部更新）
+
+   ```js
+   const params = {
+   	title: '3333-patch修改',
+   }
+   axios.patch("http://localhost:3001/posts/1",params)
+   ```
+
+5. 删除：**delete**
+
+   ```js
+   axios.delete("http://localhost:3001/posts/1");
+   ```
+
+6. 表关联：**_embed（向下关联）**
+
+   ```js
+   axios.get("http://localhost:3001/posts?_embed=comments").then(res=>{
+        console.log(res);
+   })
+   ```
+
+7. 表关联：**_expand（向上关联）**
+
+   ```js
+   axios.get("http://localhost:3001/comments?_expand=post").then(res=>{
+        console.log(res);
+   })
+   ```
+
+   这里有一个一一对应的关系很微妙，要搞懂这个才知道jsonserver是怎么进行表关联的。例子：向下关联可以直接写 **_embed=comments** 因为知道json中有一个数组是comments。而向上关联则是： **_expand=post** 后面的post，是因为上一级有一个posts字段。根据这个字段找到他们之前的关联关系。
 
