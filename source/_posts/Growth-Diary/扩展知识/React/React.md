@@ -110,3 +110,45 @@ const time = (time) => {
  }
 ```
 
+# React中页面跳转、超链接
+
+react中点击跳转新页面的方法：
+
+1. 页面点击本地页面打开新页面，引入ant的Button组件；
+
+2. 本地页面不变跳转到新的页面。
+
+   
+
+   **页面点击本地页面打开新页面**
+
+   ```js
+   <Button style={{backgroundColor:'#F0F2F5'}}
+     onClick={()=>{window.location.href="https://baidu.com"}}
+     className="r-button"
+   >
+   ```
+
+   引入**import {Link} from 'react-router-dom'**
+
+   ```js
+   <Link to="/new/login/">
+   <Button className="e-button" type="primary">Back to login page</Button>
+   </Link>
+   ```
+
+   **本地页面不变跳转到新的页面**
+
+   ```js
+   <Button style={{backgroundColor:'#F0F2F5'}}
+   onClick={this.handle}
+   className="last-button"
+   >
+   handle=()=>{
+     const w=window.open('about:blank');
+     w.location.href="www.baidu.com"
+   }
+   ```
+
+   
+
