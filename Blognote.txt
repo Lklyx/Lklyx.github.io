@@ -20,5 +20,3 @@ hexo g --d
 
 7、部署algolia搜索评论统计
 hexo algolia
-
-
